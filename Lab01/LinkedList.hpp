@@ -1,7 +1,7 @@
 #ifndef EECS560_LINKEDLIST_H
 #define EECS560_LINKEDLIST_H
 
-#include "Node.h"
+#include "Node.hpp"
 
 class LinkedList {
 private:

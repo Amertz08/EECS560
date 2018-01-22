@@ -1,6 +1,6 @@
 #include <iostream>
-#include "LinkedList.h"
-#include "Node.h"
+#include "LinkedList.hpp"
+#include "Node.hpp"
 using namespace std;
 
 LinkedList::LinkedList(){
