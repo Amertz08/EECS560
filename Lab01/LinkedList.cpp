@@ -1,5 +1,7 @@
+#include <iostream>
 #include "LinkedList.h"
 #include "Node.h"
+using namespace std;
 
 LinkedList::LinkedList(){
     this->length = 0;
@@ -88,6 +90,22 @@ void LinkedList::_erase(Node *current, int value) {
             return;
         } else {
             return this->_erase(target, value);
+        }
+    }
+}
+
+/**
+ * Print list
+ */
+void LinkedList::print() {
+    if (this->head == nullptr) {
+        cout << "Empty list" << endl;
+    } else {
+        Node* tmp = this->head;
+        cout << "List ";
+        while(tmp != nullptr) {
+            cout << tmp->value << " ";
+            tmp = tmp->next;
         }
     }
 }
