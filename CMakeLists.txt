@@ -3,6 +3,6 @@ project(eecs560)
 
 set(CMAKE_CXX_STANDARD 11)
 
-file(GLOB SRC Lab01/*.cpp Lab01/*.h)
+file(GLOB SRC Lab01/*.cpp Lab01/*.hpp)
 
 add_executable(Lab01 ${SRC})
