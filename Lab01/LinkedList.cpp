@@ -125,7 +125,9 @@ Node* LinkedList::find(int value) {
             if (tmp->value == value) {
                 return tmp;
             }
+            tmp = tmp->next;
         }
+        // EOL should be nullptr here
         return tmp;
     }
 }
