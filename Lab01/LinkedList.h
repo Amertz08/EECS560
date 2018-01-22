@@ -15,7 +15,7 @@ public:
     void _insert(Node* tmp, int value);
     bool isEmpty();
     void erase(int value);
-    void _erase(Node* tmp, int value);
+    void _erase(Node* current, int value);
     void print();
     Node* find(int value);
 };

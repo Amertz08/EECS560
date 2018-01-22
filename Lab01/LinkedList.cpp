@@ -45,17 +45,49 @@ bool LinkedList::isEmpty() {
     return this->length == 0;
 }
 
+/**
+ * Erase given value from list
+ * @param value
+ */
 void LinkedList::erase(int value) {
-    Node* tmp = this->head;
+    Node* tmp;
+    if (this->head == nullptr) {
+        // Empty list do nothing
+        return;
+    } else {
+        if (this->head->value == value) {
+            // Value is at head
+            tmp = this->head->next;
+            delete this->head;
+            this->length--;
+            this->head = tmp;
+            return;
+        }
+    }
+    // Value not at head
+    tmp = this->head;
     return this->_erase(tmp, value);
 }
 
-void LinkedList::_erase(Node *tmp, int value) {
-    if (tmp == nullptr) {
+/**
+ * Erase help function
+ * @param current
+ * @param value
+ */
+void LinkedList::_erase(Node *current, int value) {
+    Node* target = current->next;
+    if (target == nullptr) {
+        // Base case do nothing
         return;
     } else {
-        if (tmp->value == value) {
-            Node* next = tmp->next;
+        if (target->value == value) {
+            // Grab node after target
+            current->next = target->next;
+            delete target;
+            this->length--;
+            return;
+        } else {
+            return this->_erase(target, value);
         }
     }
 }
