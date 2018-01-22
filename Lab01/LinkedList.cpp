@@ -42,7 +42,7 @@ void LinkedList::_insert(Node *tmp, int value) {
  * @return
  */
 bool LinkedList::isEmpty() {
-    return this->length > 0;
+    return this->length == 0;
 }
 
 void LinkedList::erase(int value) {
