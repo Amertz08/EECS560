@@ -109,3 +109,22 @@ void LinkedList::print() {
         }
     }
 }
+
+/**
+ * Returns pointer to Node if found else nullptr
+ * @param value
+ * @return
+ */
+Node* LinkedList::find(int value) {
+    if (this->head == nullptr) {
+        return nullptr;
+    } else {
+        Node* tmp = this->head;
+        while(tmp != nullptr) {
+            if (tmp->value == value) {
+                return tmp;
+            }
+        }
+        return tmp;
+    }
+}
