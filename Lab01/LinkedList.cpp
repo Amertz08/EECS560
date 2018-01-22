@@ -107,6 +107,7 @@ void LinkedList::print() {
             cout << tmp->value << " ";
             tmp = tmp->next;
         }
+        cout << endl;
     }
 }
 
@@ -127,4 +128,12 @@ Node* LinkedList::find(int value) {
         }
         return tmp;
     }
+}
+
+/**
+ * Gets length of list
+ * @return
+ */
+int LinkedList::size() {
+    return this->length;
 }

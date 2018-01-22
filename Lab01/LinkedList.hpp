@@ -18,6 +18,7 @@ public:
     void _erase(Node* current, int value);
     void print();
     Node* find(int value);
+    int size();
 };
 
 
