@@ -19,6 +19,10 @@ Node.o:
 List.o: Node.o
 	$(CMD) -c LinkedList.cpp -o $(DIR)/List.o
 
+tar:
+	tar -cvf Mertz_Lab01.tar.gz $(shell find . -type f -name "*.*pp") data.txt Makefile
+
 clean:
 	rm -rf ./build
+	rm *.tar.gz
 	mkdir ./build
