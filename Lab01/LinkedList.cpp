@@ -15,7 +15,7 @@ LinkedList::~LinkedList() {}
  * @param value : value to insert
  */
 void LinkedList::insert(int value) {
-    if (this->head == nullptr) {
+    if (this->isEmpty()) {
         this->head = new Node(value);
         this->length++;
         return;
@@ -53,7 +53,7 @@ bool LinkedList::isEmpty() {
  */
 void LinkedList::erase(int value) {
     Node* tmp;
-    if (this->head == nullptr) {
+    if (this->isEmpty()) {
         // Empty list do nothing
         return;
     } else {
@@ -98,7 +98,7 @@ void LinkedList::_erase(Node *current, int value) {
  * Print list
  */
 void LinkedList::print() {
-    if (this->head == nullptr) {
+    if (this->isEmpty()) {
         cout << "Empty list" << endl;
     } else {
         Node* tmp = this->head;
@@ -117,7 +117,7 @@ void LinkedList::print() {
  * @return ptr to node or nullptr
  */
 Node* LinkedList::find(int value) {
-    if (this->head == nullptr) {
+    if (this->isEmpty()) {
         return nullptr;
     } else {
         Node* tmp = this->head;
