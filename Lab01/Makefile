@@ -19,6 +19,9 @@ Node.o:
 List.o: Node.o
 	$(CMD) -c LinkedList.cpp -o $(DIR)/List.o
 
+mem:
+	valgrind --leak-check=yes $(MAIN)
+
 tar:
 	tar -cvf Mertz_Lab01.tar.gz $(shell find . -type f -name "*.*pp") data.txt Makefile
 
