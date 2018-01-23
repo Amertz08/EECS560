@@ -4,7 +4,7 @@ DIR=./build
 MAIN=$(DIR)/$(O)
 INPUT=data.txt
 
-main: Main.o Node.o List.o
+main: Main.o List.o
 	$(CMD) -o $(MAIN) $(DIR)/Main.o $(DIR)/Node.o $(DIR)/List.o
 
 run:
@@ -16,7 +16,7 @@ Main.o:
 Node.o:
 	$(CMD) -c Node.cpp -o $(DIR)/Node.o
 
-List.o:
+List.o: Node.o
 	$(CMD) -c LinkedList.cpp -o $(DIR)/List.o
 
 clean:
