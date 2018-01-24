@@ -8,7 +8,13 @@ LinkedList::LinkedList(){
     this->head = nullptr;
 }
 
-LinkedList::~LinkedList() {}
+LinkedList::~LinkedList() {
+    while (this->head != nullptr) {
+        Node* tmp = this->head;
+        this->head = this->head->next;
+        delete tmp;
+    }
+}
 
 /**
  * Insert value at end of list
