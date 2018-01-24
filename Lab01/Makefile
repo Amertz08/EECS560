@@ -3,8 +3,9 @@ O=Lab01
 DIR=./build
 MAIN=$(DIR)/$(O)
 INPUT=data.txt
+ARCH_NAME=Mertz_Lab01.tar.gz
 
-main: Main.o List.o
+main: List.o Main.o
 	$(CMD) -o $(MAIN) $(DIR)/Main.o $(DIR)/Node.o $(DIR)/List.o
 
 run:
@@ -23,9 +24,9 @@ mem:
 	valgrind --leak-check=yes $(MAIN)
 
 tar:
-	tar -cvf Mertz_Lab01.tar.gz $(shell find . -type f -name "*.*pp") data.txt Makefile
+	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") data.txt Makefile
 
 clean:
 	rm -rf ./build
-	rm *.tar.gz
 	mkdir ./build
+	rm $(ARCH_NAME)
