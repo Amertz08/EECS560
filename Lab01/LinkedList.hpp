@@ -6,15 +6,15 @@
 class LinkedList {
 private:
     Node* head;
+    void _insert(Node* tmp, int value);
+    void _erase(Node* current, int value);
 
 public:
     LinkedList();
     ~LinkedList();
     void insert(int value);
-    void _insert(Node* tmp, int value);
     bool isEmpty();
     void erase(int value);
-    void _erase(Node* current, int value);
     void print();
     Node* find(int value);
 };
