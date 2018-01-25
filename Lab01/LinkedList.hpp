@@ -5,7 +5,6 @@
 
 class LinkedList {
 private:
-    int length;
     Node* head;
 
 public:
@@ -18,7 +17,6 @@ public:
     void _erase(Node* current, int value);
     void print();
     Node* find(int value);
-    int size();
 };
 
 

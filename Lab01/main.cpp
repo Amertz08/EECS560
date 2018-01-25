@@ -9,8 +9,7 @@ int usage() {
     cout << "2 - Delete" << endl;
     cout << "3 - Find" << endl;
     cout << "4 - Print" << endl;
-    cout << "5 - Length" << endl;
-    cout << "6 - Exit" << endl;
+    cout << "5 - Exit" << endl;
     cout << "Select a choice: ";
     cin >> input;
     return input;
@@ -68,9 +67,6 @@ int main(int argc, char** argv) {
                     break;
                 case 4:
                     list.print();
-                    break;
-                case 5:
-                    cout << "Length: " << list.size() << endl;
                     break;
                 case 6:
                     return 0;

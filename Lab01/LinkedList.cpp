@@ -4,12 +4,11 @@
 using namespace std;
 
 LinkedList::LinkedList(){
-    this->length = 0;
     this->head = nullptr;
 }
 
 LinkedList::~LinkedList() {
-    while (this->head != nullptr) {
+    while (!this->isEmpty()) {
         Node* tmp = this->head;
         this->head = this->head->next;
         delete tmp;
@@ -23,7 +22,6 @@ LinkedList::~LinkedList() {
 void LinkedList::insert(int value) {
     if (this->isEmpty()) {
         this->head = new Node(value);
-        this->length++;
         return;
     } else if (this->find(value) != nullptr) {
         cout << "Value is already in the list" << endl;
@@ -41,7 +39,6 @@ void LinkedList::insert(int value) {
 void LinkedList::_insert(Node *tmp, int value) {
     if (tmp->next == nullptr) {
         tmp->next = new Node(value);
-        this->length++;
         return;
     } else {
         return this->_insert(tmp->next, value);
@@ -53,7 +50,7 @@ void LinkedList::_insert(Node *tmp, int value) {
  * @return bool
  */
 bool LinkedList::isEmpty() {
-    return this->length == 0;
+    return this->head == nullptr;
 }
 
 /**
@@ -70,7 +67,6 @@ void LinkedList::erase(int value) {
             // Value is at head
             tmp = this->head->next;
             delete this->head;
-            this->length--;
             this->head = tmp;
             return;
         }
@@ -95,7 +91,6 @@ void LinkedList::_erase(Node *current, int value) {
             // Grab node after target
             current->next = target->next;
             delete target;
-            this->length--;
             return;
         } else {
             return this->_erase(target, value);
@@ -139,12 +134,4 @@ Node* LinkedList::find(int value) {
         // EOL should be nullptr here
         return tmp;
     }
-}
-
-/**
- * Gets length of list
- * @return size of list
- */
-int LinkedList::size() {
-    return this->length;
 }
