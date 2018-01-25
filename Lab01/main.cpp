@@ -68,9 +68,10 @@ int main(int argc, char** argv) {
                 case 4:
                     list.print();
                     break;
-                case 6:
+                case 5:
                     return 0;
                 default:
+                    cout << pick << " is not a valid input" << endl;
                     break;
             }
         }
