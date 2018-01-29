@@ -1,32 +1,35 @@
 CMD=g++ -g -Wall -std=c++11
 O=Lab01
 DIR=./build
-MAIN=$(DIR)/$(O)
+BIN=$(DIR)/$(O)
 INPUT=data.txt
 ARCH_NAME=Mertz_Lab01.tar.gz
+NODE=$(DIR)/Node.o
+LIST=$(DIR)/List.o
+MAIN=$(DIR)/Main.o
 
 main: List.o Main.o
-	$(CMD) -o $(MAIN) $(DIR)/Main.o $(DIR)/Node.o $(DIR)/List.o
+	$(CMD) -o $(BIN) $(DIR)/Main.o $(DIR)/Node.o $(DIR)/List.o
 
-run:
-	$(MAIN) $(INPUT)
+test:
+	$(BIN) $(INPUT)
 
 Main.o:
-	$(CMD) -c main.cpp -o $(DIR)/Main.o
+	$(CMD) -c main.cpp -o $(MAIN)
 
 Node.o:
-	$(CMD) -c Node.cpp -o $(DIR)/Node.o
+	$(CMD) -c Node.cpp -o $(NODE)
 
 List.o: Node.o
-	$(CMD) -c LinkedList.cpp -o $(DIR)/List.o
+	$(CMD) -c LinkedList.cpp -o $(LIST)
 
 mem:
-	valgrind --leak-check=yes $(MAIN)
+	valgrind --leak-check=yes $(BIN)
 
 tar:
-	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") data.txt Makefile
+	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(INPUT) Makefile
 
 clean:
-	rm -rf ./build
-	mkdir ./build
+	rm -rf $(DIR)
+	mkdir $(DIR)
 	rm $(ARCH_NAME)

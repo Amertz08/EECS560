@@ -5,15 +5,16 @@ LIST=build/List.o
 HASH=build/Hash.o
 MAIN=build/Main.o
 BIN=build/Lab02
+IN=data.txt
 
 main: Main.o
-	$(GPP) -o $(BIN) $(MAIN) $(HASH) $(LIST) $(NODE)
+	$(GPP) $(MAIN) $(HASH) $(LIST) $(NODE) -o $(BIN)
 
 test:
-	$(BIN) data.txt
+	$(BIN) $(IN)
 
 tar:
-	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") data.txt Makefile
+	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(IN) Makefile
 
 Main.o: Hash.o
 	$(GPP) -c main.cpp -o $(MAIN)
