@@ -43,7 +43,6 @@ void LinkedList::insert_front(int value) {
     Node* tmp = this->head;
     this->head = new Node(value);
     this->head->next = tmp;
-    return;
 }
 
 /**
