@@ -34,4 +34,4 @@ Node.o:
 clean:
 	rm -rf ./build
 	mkdir ./build
-	rm $(ARCH_NAME)
+	rm -f $(ARCH_NAME)

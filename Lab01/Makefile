@@ -32,4 +32,4 @@ tar:
 clean:
 	rm -rf $(DIR)
 	mkdir $(DIR)
-	rm $(ARCH_NAME)
+	rm -f $(ARCH_NAME)
