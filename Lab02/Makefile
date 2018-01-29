@@ -19,6 +19,9 @@ test:
 test_no:
 	$(BIN)
 
+test_bad_f:
+	$(BIN) blah.txt
+
 tar:
 	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(IN) Makefile
 
