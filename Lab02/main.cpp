@@ -24,8 +24,8 @@ int main(int argc, char* argv[]) {
     HashTable* table = nullptr;
 
     if (argc == 1) {
-        cout << "Please provide an input file" << endl;
-        return 0;
+        cerr << "Please provide an input file" << endl;
+        exit(1);
     } else {
         string file_name = argv[1];
         ifstream file;

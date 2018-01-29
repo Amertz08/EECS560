@@ -13,6 +13,9 @@ main: Main.o
 test:
 	$(BIN) $(IN)
 
+test_no:
+	$(BIN)
+
 tar:
 	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(IN) Makefile
 
