@@ -30,8 +30,7 @@ void HashTable::Insert(int value) {
     if (this->Find(value)) {
         cout << "Value already exists" << endl;
     } else {
-        int index = this->Hash(value);
-        this->_list[index].insert_front(value);
+        this->_list[this->Hash(value)].insert_front(value);
     }
 }
 
@@ -59,6 +58,5 @@ bool HashTable::Find(int value) {
  * @param value : value to delete
  */
 void HashTable::Delete(int value) {
-    int index = this->Hash(value);
-    this->_list[index].erase(value);
+    this->_list[this->Hash(value)].erase(value);
 }
