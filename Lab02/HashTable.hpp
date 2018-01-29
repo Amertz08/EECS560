@@ -8,7 +8,7 @@ private:
     LinkedList* _list;
     int _mod;
 public:
-    HashTable(int mod);
+    explicit HashTable(int mod);
     ~HashTable();
     void Insert(int value);
     void Delete(int value);
