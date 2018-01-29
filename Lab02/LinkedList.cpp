@@ -36,14 +36,14 @@ void LinkedList::insert(int value) {
  * @param value : value to insert
  */
 void LinkedList::insert_front(int value) {
-    if (this->isEmpty()) {
-        this->insert(value);
-    } else {
-        Node* tmp = this->head;
-        this->head = new Node(value);
-        this->head->next = tmp;
+    if (this->find(value) != nullptr) {
+        cout << "Value is already in the list" << endl;
         return;
     }
+    Node* tmp = this->head;
+    this->head = new Node(value);
+    this->head->next = tmp;
+    return;
 }
 
 /**
