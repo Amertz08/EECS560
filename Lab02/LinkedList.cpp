@@ -85,12 +85,14 @@ void LinkedList::_erase(Node *current, int value) {
     Node* target = current->next;
     if (target == nullptr) {
         // Base case do nothing
+        cout << value << " was not found in list" << endl;
         return;
     } else {
         if (target->value == value) {
             // Grab node after target
             current->next = target->next;
             delete target;
+            cout << value << " has been deleted" << endl;
             return;
         } else {
             return this->_erase(target, value);
@@ -106,7 +108,6 @@ void LinkedList::print() {
         cout << "Empty list" << endl;
     } else {
         Node* tmp = this->head;
-        cout << "List ";
         while(tmp != nullptr) {
             cout << tmp->value << " ";
             tmp = tmp->next;
