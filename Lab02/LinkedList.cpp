@@ -32,6 +32,21 @@ void LinkedList::insert(int value) {
 }
 
 /**
+ * Insert front of list
+ * @param value : value to insert
+ */
+void LinkedList::insert_front(int value) {
+    if (this->isEmpty()) {
+        this->insert(value);
+    } else {
+        Node* tmp = this->head;
+        this->head = new Node(value);
+        this->head->next = tmp;
+        return;
+    }
+}
+
+/**
  * Recursive helper function for insert
  * @param tmp : ptr to target node
  * @param value : value to insert

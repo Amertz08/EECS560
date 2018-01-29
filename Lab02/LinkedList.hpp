@@ -13,6 +13,7 @@ public:
     LinkedList();
     ~LinkedList();
     void insert(int value);
+    void insert_front(int value);
     bool isEmpty();
     void erase(int value);
     void print();

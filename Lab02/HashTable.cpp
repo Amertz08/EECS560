@@ -27,8 +27,12 @@ int HashTable::Hash(int value) {
  * @param value : value to insert
  */
 void HashTable::Insert(int value) {
-    int index = this->Hash(value);
-    this->_list[index].insert(value);
+    if (this->Find(value)) {
+        cout << "Value already exists" << endl;
+    } else {
+        int index = this->Hash(value);
+        this->_list[index].insert_front(value);
+    }
 }
 
 /**
