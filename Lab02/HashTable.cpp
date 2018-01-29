@@ -51,12 +51,7 @@ void HashTable::Print() {
  * @return returns true if value exists in table, false if not
  */
 bool HashTable::Find(int value) {
-    int index = this->Hash(value);
-    if (this->_list[index].find(value) == nullptr) {
-        return false;
-    } else {
-        return true;
-    }
+    return (this->_list[this->Hash(value)].find(value) != nullptr);
 }
 
 /**
