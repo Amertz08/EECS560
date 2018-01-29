@@ -28,7 +28,7 @@ int HashTable::Hash(int value) {
  */
 void HashTable::Insert(int value) {
     if (this->Find(value)) {
-        cout << "Value already exists" << endl;
+        cout << value << " already exists" << endl;
     } else {
         this->_list[this->Hash(value)].insert_front(value);
     }
