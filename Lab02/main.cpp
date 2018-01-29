@@ -4,6 +4,10 @@
 #include <string>
 using namespace std;
 
+/**
+ * Prints menu UI and takes input
+ * @return : Input selection value
+ */
 int usage() {
     int input;
     cout << "1 - Insert" << endl;
