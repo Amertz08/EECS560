@@ -1,10 +1,13 @@
+NM=Mertz
+L=Lab02
 GPP=g++ -g -Wall -std=c++11
-ARCH_NAME=Mertz_Lab02.tar.gz
-NODE=build/Node.o
-LIST=build/List.o
-HASH=build/Hash.o
-MAIN=build/Main.o
-BIN=build/Lab02
+ARCH_NAME=$(NM)_$(L).tar.gz
+B=build
+NODE=$(B)/Node.o
+LIST=$(B)/List.o
+HASH=$(B)/Hash.o
+MAIN=$(B)/Main.o
+BIN=$(B)/$(L)
 IN=data.txt
 
 main: Main.o
@@ -32,6 +35,6 @@ Node.o:
 	$(GPP) -c Node.cpp -o $(NODE)
 
 clean:
-	rm -rf ./build
-	mkdir ./build
+	rm -rf $(B)
+	mkdir $(B)
 	rm -f $(ARCH_NAME)
