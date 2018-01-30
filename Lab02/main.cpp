@@ -10,12 +10,12 @@ using namespace std;
  */
 int usage() {
     int input;
-    cout << "1 - Insert\n";
-    cout << "2 - Delete\n";
-    cout << "3 - Find\n";
-    cout << "4 - Print\n";
-    cout << "5 - Exit\n";
-    cout << "Select a choice: ";
+    cout << "1 - Insert\n"
+    << "2 - Delete\n"
+    << "3 - Find\n"
+    << "4 - Print\n"
+    << "5 - Exit\n"
+    << "Select a choice: ";
     cin >> input;
     return input;
 }
