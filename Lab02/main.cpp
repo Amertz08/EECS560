@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 
     if (argc == 1) {
         cli_usage();
-        cerr << "Please provide an input file" << endl;
+        cerr << "Please provide an input file\n";
         exit(1);
     } else {
         string file_name = argv[1];
@@ -73,9 +73,9 @@ int main(int argc, char* argv[]) {
                     cout << "Find a value: ";
                     cin >> val;
                     if (table->Find(val)) {
-                        cout << "Value in table" << endl;
+                        cout << "Value in table\n";
                     } else {
-                        cout << "Value NOT in table" << endl;
+                        cout << "Value NOT in table\n";
                     }
                     break;
                 case 4:
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
                 case 5:
                     return 0;
                 default:
-                    cout << input << " is not a valid input" << endl;
+                    cout << input << " is not a valid input\n";
                     break;
             }
         }
