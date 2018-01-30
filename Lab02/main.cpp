@@ -10,20 +10,28 @@ using namespace std;
  */
 int usage() {
     int input;
-    cout << "1 - Insert" << endl;
-    cout << "2 - Delete" << endl;
-    cout << "3 - Find" << endl;
-    cout << "4 - Print" << endl;
-    cout << "5 - Exit" << endl;
+    cout << "1 - Insert\n";
+    cout << "2 - Delete\n";
+    cout << "3 - Find\n";
+    cout << "4 - Print\n";
+    cout << "5 - Exit\n";
     cout << "Select a choice: ";
     cin >> input;
     return input;
+}
+
+/**
+ * Prints CLI usage
+ */
+void cli_usage() {
+    cout << "Usage: ./Lab02 FILE_NAME\n";
 }
 
 int main(int argc, char* argv[]) {
     HashTable* table = nullptr;
 
     if (argc == 1) {
+        cli_usage();
         cerr << "Please provide an input file" << endl;
         exit(1);
     } else {
