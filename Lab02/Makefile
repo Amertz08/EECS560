@@ -10,7 +10,7 @@ MAIN=$(B)/Main.o
 BIN=$(B)/$(L)
 IN=data.txt
 
-main: Main.o
+main: dir Main.o
 	$(GPP) $(MAIN) $(HASH) $(LIST) $(NODE) -o $(BIN)
 
 test:
@@ -21,6 +21,10 @@ test_no:
 
 test_bad_f:
 	$(BIN) blah.txt
+
+dir:
+	rm -rf $(B)
+	mkdir $(B)
 
 tar:
 	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(IN) Makefile
@@ -37,7 +41,5 @@ List.o: Node.o
 Node.o:
 	$(GPP) -c Node.cpp -o $(NODE)
 
-clean:
-	rm -rf $(B)
-	mkdir $(B)
+clean: 	dir
 	rm -f $(ARCH_NAME)
