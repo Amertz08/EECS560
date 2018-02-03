@@ -16,10 +16,10 @@ main: dir Main.o
 test:
 	$(BIN) $(IN)
 
-test_no:
+testno:
 	$(BIN)
 
-test_bad_f:
+testbadf:
 	$(BIN) blah.txt
 
 dir:
@@ -27,7 +27,7 @@ dir:
 	mkdir $(B)
 
 tar:
-	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(IN) Makefile
+	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(IN) Makefile readme.txt
 
 Main.o: Hash.o
 	$(GPP) -c main.cpp -o $(MAIN)
