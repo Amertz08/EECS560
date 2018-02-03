@@ -27,7 +27,8 @@ dir:
 	mkdir $(B)
 
 tar:
-	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") $(IN) Makefile readme.txt
+	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") \
+	$(IN) Makefile readme.txt
 
 Main.o: Hash.o
 	$(GPP) -c main.cpp -o $(MAIN)
