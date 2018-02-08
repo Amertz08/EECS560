@@ -31,13 +31,17 @@ void QHashTable::remove(int val) {
 
 int QHashTable::hash(int val) {
     for (int i = 0; i < this->_k; i++) {
-        int hashVal = val % this->_mod + (i * i);
+        int hashVal = this->_hash(val, i);
         while (hashVal > this->_mod)
             hashVal -= this->_mod;
         if (this->_buckets[hashVal].empty())
             return hashVal;
     }
     return -1;
+}
+
+int QHashTable::_hash(int val, int i) {
+    return val % this->_mod + (i * i);
 }
 
 void QHashTable::print() {
@@ -49,9 +53,14 @@ void QHashTable::print() {
 }
 
 bool QHashTable::find(int val) {
-    for (int i = 0; i < this->_mod; i++) {
-        if (this->_buckets[i].getVal() == val) {
+    for (int i = 0; i < this->_k; i++) {
+        int hashVal = this->_hash(val, i);
+        while (hashVal > this->_mod)
+            hashVal -= this->_mod;
+        if (this->_buckets[hashVal].getVal() == val) {
             return true;
+        } else if (this->_buckets[hashVal].getVal() == -2) {
+            return false;
         }
     }
     return false;

@@ -51,6 +51,14 @@ public:
      * @return Hash of value
      */
     int hash(int val);
+
+    /**
+     * Helper function that does the actual hash calculation
+     * @param val : value to hash
+     * @param i : index
+     * @return hash index
+     */
+    int _hash(int val, int i);
 };
 
 #endif
