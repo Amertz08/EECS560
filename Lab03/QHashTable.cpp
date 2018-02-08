@@ -9,7 +9,11 @@ QHashTable::QHashTable(int mod, int k) {
     this->_buckets = new Bucket[mod];
 }
 
-QHashTable::~QHashTable() {}
+QHashTable::~QHashTable() {
+    for (int i = 0; i < this->_mod; i++) {
+        delete this->_buckets[i];
+    }
+}
 
 void QHashTable::insert(int val) {
     int hash = this->hash(val);
@@ -32,8 +36,8 @@ void QHashTable::remove(int val) {
 int QHashTable::hash(int val) {
     for (int i = 0; i < this->_k; i++) {
         int hashVal = this->_hash(val, i);
-        while (hashVal > this->_mod)
-            hashVal -= this->_mod;
+        if (hashVal > this->_mod)
+            hashVal = hashVal % this->_mod;
         if (this->_buckets[hashVal].empty())
             return hashVal;
     }
