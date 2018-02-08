@@ -30,9 +30,10 @@ void QHashTable::remove(int val) {
 }
 
 int QHashTable::hash(int val) {
-    // TODO: what happens if hash exceeds array?
     for (int i = 0; i < this->_k; i++) {
         int hashVal = val % this->_mod + (i * i);
+        while (hashVal > this->_mod)
+            hashVal -= this->_mod;
         if (this->_buckets[hashVal].empty())
             return hashVal;
     }
