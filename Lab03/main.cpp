@@ -3,6 +3,7 @@
 #include <string>
 #include <stdlib.h>
 #include "QHashTable.hpp"
+#include "DHashTable.hpp"
 using namespace std;
 
 /**
@@ -49,9 +50,14 @@ int main(int argc, char* argv[]) {
             int input;
 
             QHashTable qt = QHashTable(m, k);
+            DHashTable dt = DHashTable(m, k, p);
 
-            while (file >> input)
+
+            while (file >> input) {
                 qt.insert(input);
+                dt.insert(input);
+            }
+
 
             do {
                 choice = usage(m, k, p);
@@ -62,24 +68,34 @@ int main(int argc, char* argv[]) {
                         cout << "Insert a value: ";
                         cin >> value;
                         qt.insert(value);
+                        dt.insert(value);
                         break;
                     case 2:
                         cout << "Deleted a value: ";
                         cin >> value;
                         qt.remove(value);
+                        dt.remove(value);
                         break;
                     case 3:
                         cout << "Find a value: ";
                         cin >> value;
                         if (qt.find(value)) {
-                            cout << "Value found\n";
+                            cout << "Value found in Q Table\n";
                         } else {
-                            cout << "Value not found\n";
+                            cout << "Value not found in Q Table\n";
+                        }
+
+                        if (dt.find(value)) {
+                            cout << "Value found in D Table\n";
+                        } else {
+                            cout << "Value not found in D Table\n";
                         }
                         break;
                     case 4:
-                        cout << "print table\n";
+                        cout << "Print QHash\n";
                         qt.print();
+                        cout << "Print DHash\n";
+                        dt.print();
                         break;
                     case 5:
                         cout << "Exiting...\n";
