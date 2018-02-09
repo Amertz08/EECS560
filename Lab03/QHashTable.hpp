@@ -5,8 +5,8 @@
 
 class QHashTable {
 private:
-    Bucket* _buckets;
     int _k, _mod;
+    Bucket* _buckets;
 
 public:
     /**

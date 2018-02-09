@@ -10,9 +10,7 @@ QHashTable::QHashTable(int mod, int k) {
 }
 
 QHashTable::~QHashTable() {
-    for (int i = 0; i < this->_mod; i++) {
-        delete this->_buckets[i];
-    }
+    delete[] this->_buckets;
 }
 
 void QHashTable::insert(int val) {
@@ -26,11 +24,15 @@ void QHashTable::insert(int val) {
 
 void QHashTable::remove(int val) {
     for (int i = 0; i < this->_mod; i++) {
-        if (this->_buckets[i].getVal() == val) {
-            this->_buckets[i].remove();
-            break;
+        int hashVal = this->_hash(val, i);
+        if (hashVal > this->_mod)
+            hashVal = hashVal % this->_mod;
+        if (this->_buckets[hashVal].getVal() == val) {
+            this->_buckets[hashVal].remove();
+            return;
         }
     }
+    cout << "Could not find value\n";
 }
 
 int QHashTable::hash(int val) {
