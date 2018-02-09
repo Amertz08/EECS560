@@ -15,10 +15,6 @@ LinkedList::~LinkedList() {
     }
 }
 
-/**
- * Insert value at end of list
- * @param value : value to insert
- */
 void LinkedList::insert(int value) {
     if (this->isEmpty()) {
         this->head = new Node(value);
@@ -31,11 +27,6 @@ void LinkedList::insert(int value) {
     return this->_insert(tmp, value);
 }
 
-/**
- * Recursive helper function for insert
- * @param tmp : ptr to target node
- * @param value : value to insert
- */
 void LinkedList::_insert(Node *tmp, int value) {
     if (tmp->next == nullptr) {
         tmp->next = new Node(value);
@@ -45,18 +36,10 @@ void LinkedList::_insert(Node *tmp, int value) {
     }
 }
 
-/**
- * Checks if list is empty or not
- * @return bool
- */
 bool LinkedList::isEmpty() {
     return this->head == nullptr;
 }
 
-/**
- * Erase given value from list
- * @param value : value to delete
- */
 void LinkedList::erase(int value) {
     Node* tmp;
     if (this->isEmpty()) {
@@ -76,11 +59,6 @@ void LinkedList::erase(int value) {
     return this->_erase(tmp, value);
 }
 
-/**
- * Erase recursive helper function
- * @param current : ptr to current node
- * @param value : value to delete
- */
 void LinkedList::_erase(Node *current, int value) {
     Node* target = current->next;
     if (target == nullptr) {
@@ -98,9 +76,6 @@ void LinkedList::_erase(Node *current, int value) {
     }
 }
 
-/**
- * Print list
- */
 void LinkedList::print() {
     if (this->isEmpty()) {
         cout << "Empty list" << endl;
@@ -115,11 +90,6 @@ void LinkedList::print() {
     }
 }
 
-/**
- * Returns pointer to Node if found else nullptr
- * @param value : value to look for
- * @return ptr to node or nullptr
- */
 Node* LinkedList::find(int value) {
     if (this->isEmpty()) {
         return nullptr;
