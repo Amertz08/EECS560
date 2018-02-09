@@ -10,7 +10,7 @@ HashTable::HashTable(int mod)
 }
 
 HashTable::~HashTable() {
-    delete this->_list;
+    delete[] this->_list;
 }
 
 /**
