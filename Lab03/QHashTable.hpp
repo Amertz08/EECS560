@@ -2,62 +2,23 @@
 #define EECS560_QHASHTABLE_H
 
 #include "Bucket.hpp"
+#include "HashTable.hpp"
 
-class QHashTable {
-private:
-    int _k, _mod;
-    Bucket* _buckets;
+class QHashTable : public HashTable {
 
 public:
     /**
      * Hash table that uses quadratic probing
      * @param mod
      */
-    explicit QHashTable(int mod, int k);
+    QHashTable(int mod, int k);
 
     /**
-     * Deconstructor
+     * Hash f(i) function
+     * @param i : loop index
+     * @return : i^2
      */
-    ~QHashTable();
-
-    /**
-     * Insert value to table
-     * @param val
-     */
-    void insert(int val);
-
-    /**
-     * Removes value from table
-     * @param val
-     */
-    void remove(int val);
-
-    /**
-     * Prints non empty buckets
-     */
-    void print();
-
-    /**
-     * Finds value in table
-     * @param val : value to search for
-     * @return true if found
-     */
-    bool find(int val);
-
-    /**
-     * Finds hash for value
-     * @param val : value to hash
-     * @return Hash of value
-     */
-    int hash(int val);
-
-    /**
-     * Helper function that does the actual hash calculation
-     * @param val : value to hash
-     * @param i : index
-     * @return hash index
-     */
-    int _hash(int val, int i);
+    int _func(int val, int i);
 };
 
 #endif

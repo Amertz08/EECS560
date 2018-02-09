@@ -4,7 +4,7 @@ Bucket::Bucket() {
     this->_value = -2;
 }
 
-Bucket::~Bucket() {}
+Bucket::~Bucket() = default;
 
 int Bucket::getVal() {
     return this->_value;

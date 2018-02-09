@@ -14,7 +14,7 @@ public:
     Bucket();
 
     /**
-     * Deconstructor
+     * Destructor
      */
     ~Bucket();
 

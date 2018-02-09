@@ -1,13 +1,14 @@
 G=g++ -g -Wall -std=c++11
 MAIN=build/main.o
 BUCKET=build/bucket.o
+HASH=build/hash.o
 QHASH=build/qhash.o
 DHASH=build/dhash.o
 BIN=build/Lab03
 ARCH=Mertz_Lab03.tar.gz
 
 main: dir main.o
-	$(G) $(MAIN) $(QHASH) $(DHASH) $(BUCKET) -o $(BIN)
+	$(G) $(BUCKET) $(HASH) $(QHASH) $(DHASH) $(MAIN) -o $(BIN)
 
 test:
 	$(BIN) data.txt 11 4 5
@@ -18,11 +19,14 @@ test1:
 main.o: qhash.o dhash.o
 	$(G) -c main.cpp -o $(MAIN)
 
-dhash.o: bucket.o
+dhash.o: hash.o
 	$(G) -c DHashTable.cpp -o $(DHASH)
 
-qhash.o: bucket.o
+qhash.o: hash.o
 	$(G) -c QHashTable.cpp -o $(QHASH)
+
+hash.o: bucket.o
+	$(G) -c HashTable.cpp -o $(HASH)
 
 bucket.o:
 	$(G) -c Bucket.cpp -o $(BUCKET)
