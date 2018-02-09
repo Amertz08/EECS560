@@ -18,7 +18,7 @@ public:
      * @param i : loop index
      * @return : i^2
      */
-    int _func(int val, int i);
+    int _func(int val, int i) override;
 };
 
 #endif

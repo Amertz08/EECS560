@@ -22,7 +22,7 @@ public:
      * @param i : loop index
      * @return i * (p - val % p)
      */
-    int _func(int val, int i);
+    int _func(int val, int i) override;
 };
 
 
