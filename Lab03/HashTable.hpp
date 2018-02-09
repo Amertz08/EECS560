@@ -21,7 +21,7 @@ public:
     /**
      * Destructor
      */
-    ~HashTable();
+    virtual ~HashTable();
 
     /**
      * Inserts value into table if possible
