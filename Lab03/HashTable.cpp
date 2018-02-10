@@ -14,6 +14,10 @@ HashTable::~HashTable() {
 }
 
 void HashTable::insert(int val) {
+    if (this->find(val)) {
+        cout << "Value already exists in table\n";
+        return;
+    }
     int hash = this->hash(val);
     if (hash == -1) {
         cout << "Could not find hash\n";
