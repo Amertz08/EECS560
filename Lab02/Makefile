@@ -26,6 +26,9 @@ dir:
 	rm -rf $(B)
 	mkdir $(B)
 
+mem:
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN) data.txt
+
 tar:
 	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") \
 	$(IN) Makefile readme.txt
