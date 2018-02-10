@@ -1,10 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <stdlib.h>
 #include "QHashTable.hpp"
 #include "DHashTable.hpp"
-using namespace std;
 
 /**
  * Prints menu UI and takes input
@@ -12,22 +10,22 @@ using namespace std;
  */
 int usage(int m, int k, int p) {
     int input;
-    cout << "m=" << m << " k=" << k << " p=" << p << endl
+    std::cout << "m=" << m << " k=" << k << " p=" << p << std::endl
          << "1 - Insert\n"
          << "2 - Delete\n"
          << "3 - Find\n"
          << "4 - Print\n"
          << "5 - Exit\n"
          << "Select a choice: ";
-    cin >> input;
+    std::cin >> input;
     return input;
 }
 
 /**
  * Prints CLI usage
  */
-void cli_usage(string bin) {
-    cout << "Usage: " << bin << " FILE_NAME M_VALUE K_VALUE P_VALUE\n";
+void cli_usage(const std::string &bin) {
+    std::cout << "Usage: " << bin << " FILE_NAME M_VALUE K_VALUE P_VALUE\n";
 }
 
 int main(int argc, char* argv[]) {
@@ -36,13 +34,13 @@ int main(int argc, char* argv[]) {
         cerr << "Improper input\n";
         exit(1);
     } else {
-        string fileName = argv[1];
-        int m = atoi(argv[2]);
-        int k = atoi(argv[3]);
-        int p = atoi(argv[4]);
-        ifstream file;
+        std::string fileName = argv[1];
+        int m = std::atoi(argv[2]);
+        int k = std::atoi(argv[3]);
+        int p = std::atoi(argv[4]);
+        std::ifstream file;
 
-        cout << "Reading file " << fileName << endl;
+        std::cout << "Reading file " << fileName << std::endl;
 
         file.open(fileName);
         if (file) {
@@ -65,48 +63,48 @@ int main(int argc, char* argv[]) {
 
                 switch (choice) {
                     case 1:
-                        cout << "Insert a value: ";
-                        cin >> value;
+                        std::cout << "Insert a value: ";
+                        std::cin >> value;
                         qt.insert(value);
                         dt.insert(value);
                         break;
                     case 2:
-                        cout << "Deleted a value: ";
-                        cin >> value;
+                        std::cout << "Deleted a value: ";
+                        std::cin >> value;
                         qt.remove(value);
                         dt.remove(value);
                         break;
                     case 3:
-                        cout << "Find a value: ";
-                        cin >> value;
+                        std::cout << "Find a value: ";
+                        std::cin >> value;
                         if (qt.find(value)) {
-                            cout << "Value found in Q Table\n";
+                            std::cout << "Value found in Q Table\n";
                         } else {
-                            cout << "Value not found in Q Table\n";
+                            std::cout << "Value not found in Q Table\n";
                         }
 
                         if (dt.find(value)) {
-                            cout << "Value found in D Table\n";
+                            std::cout << "Value found in D Table\n";
                         } else {
-                            cout << "Value not found in D Table\n";
+                            std::cout << "Value not found in D Table\n";
                         }
                         break;
                     case 4:
-                        cout << "Print QHash\n";
+                        std::cout << "Print QHash\n";
                         qt.print();
-                        cout << "Print DHash\n";
+                        std::cout << "Print DHash\n";
                         dt.print();
                         break;
                     case 5:
-                        cout << "Exiting...\n";
+                        std::cout << "Exiting...\n";
                         break;
                     default:
-                        cout << "Invalid input";
+                        std::cout << "Invalid input";
                         break;
                 }
             } while (choice != 5);
         } else {
-            cerr << fileName << " did not open properly\n";
+            std::cerr << fileName << " did not open properly\n";
             exit(1);
         }
     }

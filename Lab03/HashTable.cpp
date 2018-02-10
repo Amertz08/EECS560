@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Bucket.hpp"
 #include "HashTable.hpp"
-using namespace std;
 
 HashTable::HashTable(int mod, int k) {
     this->_mod = mod;
@@ -15,12 +14,12 @@ HashTable::~HashTable() {
 
 void HashTable::insert(int val) {
     if (this->find(val)) {
-        cout << "Value already exists in table\n";
+        std::cout << "Value already exists in table\n";
         return;
     }
     int hash = this->hash(val);
     if (hash == -1) {
-        cout << "Could not find hash\n";
+        std::cout << "Could not find hash\n";
         return;
     }
     this->_buckets[hash].setVal(val);
@@ -36,7 +35,7 @@ void HashTable::remove(int val) {
             return;
         }
     }
-    cout << "Could not find value\n";
+    std::cout << "Could not find value\n";
 }
 
 int HashTable::hash(int val) {
@@ -60,7 +59,7 @@ int HashTable::_func(int val, int i) { return 0; }
 void HashTable::print() {
     for (int i = 0; i < this->_mod; i++) {
         if (!this->_buckets[i].empty()) {
-            cout << "Bucket " << i << ": " << this->_buckets[i].getVal() << endl;
+            std::cout << "Bucket " << i << ": " << this->_buckets[i].getVal() << std::endl;
         }
     }
 }

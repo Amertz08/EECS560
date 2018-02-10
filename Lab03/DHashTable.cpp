@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Bucket.hpp"
 #include "DHashTable.hpp"
-using namespace std;
 
 DHashTable::DHashTable(int mod, int k, int p) : HashTable(mod, k) {
     this->_p = p;
