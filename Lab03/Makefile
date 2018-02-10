@@ -29,6 +29,9 @@ test4:
 test5:
 	$(BIN) data5.txt $(ARGS)
 
+mem:
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN) data.txt 11 4 5
+
 main.o: qhash.o dhash.o
 	$(G) -c main.cpp -o $(MAIN)
 
