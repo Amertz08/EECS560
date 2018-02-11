@@ -67,6 +67,12 @@ public:
      * @return true if found. false if not
      */
     bool find(int val);
+
+    /**
+     * Calculates the load factor
+     * @return load factor
+     */
+    float loadFactor();
 };
 
 #endif //EECS560_HASHTABLE_HPP

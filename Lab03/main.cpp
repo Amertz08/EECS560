@@ -67,12 +67,16 @@ int main(int argc, char* argv[]) {
                         std::cin >> value;
                         qt.insert(value);
                         dt.insert(value);
+                        std::cout << "Quadratic load factor: " << qt.loadFactor() << std::endl;
+                        std::cout << "Double Hash load factor: " << dt.loadFactor() << std::endl;
                         break;
                     case 2:
                         std::cout << "Deleted a value: ";
                         std::cin >> value;
                         qt.remove(value);
                         dt.remove(value);
+                        std::cout << "Quadratic load factor: " << qt.loadFactor() << std::endl;
+                        std::cout << "Double Hash load factor: " << dt.loadFactor() << std::endl;
                         break;
                     case 3:
                         std::cout << "Find a value: ";

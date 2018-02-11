@@ -50,7 +50,7 @@ int HashTable::hash(int val) {
 }
 
 int HashTable::_hash(int val, int i) {
-    return val % this->_mod + this->_func(val, i);
+    return (val % this->_mod + this->_func(val, i)) % this->_mod;
 }
 
 int HashTable::_func(int val, int i) { return 0; }
@@ -76,4 +76,13 @@ bool HashTable::find(int val) {
         }
     }
     return false;
+}
+
+float HashTable::loadFactor() {
+    float n = 0.0;
+    for (int i = 0; i < this->_mod; i++) {
+        if (!this->_buckets[i].empty())
+            n += 1.0;
+    }
+    return n / (float)this->_mod;
 }
