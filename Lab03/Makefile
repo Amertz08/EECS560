@@ -49,7 +49,8 @@ bucket.o:
 
 tar:
 	tar -cvf $(ARCH) $(shell find . -type f -name "*.*pp") \
-	Makefile readme.txt data.txt data1.txt
+	Makefile readme.txt data.txt data1.txt data2.txt data3.txt \
+	data4.txt data5.txt observations.txt
 
 dir:
 	rm -rf build
