@@ -1,0 +1,7 @@
+In our lab we created hash tables with two different hashing functions. One was a quadratic hash and the other used double hashing.
+In our longest data set the double hash filled faster than the quadratic hash. You could see this given the message when it attempted to input the value.
+Also by printing the hash tables you can see the load factor and note that the double hash table had a lower load factor.
+By using a value (-1) to denote that a bucket had at one point held a value vs never held a value (-2), we actually decrease the time it takes
+to find a valid hash. If we simply had one value to denote empty we may actually continue to search past empty buckets that could of
+previously held the value we are looking to find. Given that we do differentiate between types of empty buckets we can end our search if we find
+a bucket that was once empty as it could of previously held the value and thus save CPU cycles.
