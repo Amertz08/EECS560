@@ -98,6 +98,8 @@ int main(int argc, char* argv[]) {
                         qt.print();
                         std::cout << "Print DHash\n";
                         dt.print();
+                        std::cout << "Quadratic load factor: " << qt.loadFactor() << std::endl;
+                        std::cout << "Double Hash load factor: " << dt.loadFactor() << std::endl;
                         break;
                     case 5:
                         std::cout << "Exiting...\n";
