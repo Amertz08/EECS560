@@ -15,6 +15,12 @@ public:
     ~BinarySearchTree();
 
     /**
+     * Destructor helper that deletes nodes
+     * @param target : node to possible delete
+     */
+    void _delete(Node* target);
+
+    /**
      * Checks if BST is empty or not
      * @return true if empty. false if not
      */

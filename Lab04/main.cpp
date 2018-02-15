@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
 
-    BinarySearchTree tree = BinarySearchTree();
+    BinarySearchTree tree;
     std::string fileName = argv[1];
     std::ifstream file;
 

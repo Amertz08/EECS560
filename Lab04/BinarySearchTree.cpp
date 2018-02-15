@@ -4,7 +4,15 @@
 
 BinarySearchTree::BinarySearchTree() { this->root = nullptr; }
 
-BinarySearchTree::~BinarySearchTree() { delete this->root; }
+BinarySearchTree::~BinarySearchTree() { this->_delete(this->root); }
+
+void BinarySearchTree::_delete(Node *target) {
+    if (target->getLeft())
+        this->_delete(target->getLeft());
+    if (target->getRight())
+        this->_delete(target->getRight());
+    delete target;
+}
 
 bool BinarySearchTree::empty() { return this->root == nullptr; }
 

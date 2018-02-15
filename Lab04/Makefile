@@ -16,6 +16,9 @@ testcomp:
 testskew:
 	$(BIN) skew_tree.txt
 
+mem:
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN) data.txt
+
 main.o: bst.o
 	$(G) -c main.cpp -o $(MAIN)
 
