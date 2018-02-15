@@ -3,6 +3,7 @@ MAIN=build/main.o
 BST=build/bst.o
 NODE=build/node.o
 BIN=build/Lab04
+ARCH=Mertz_Lab04.tar.gz
 
 build: dir main.o
 	$(G) $(NODE) $(BST) $(MAIN) -o $(BIN)
@@ -19,6 +20,11 @@ testskew:
 mem:
 	valgrind --leak-check=full --show-leak-kinds=all $(BIN) data.txt
 
+tar:
+	tar -cvf $(ARCH) $(shell find . -type f -name "*.*pp") \
+	$(shell find . -type f -name "*.txt") \
+	Makefile
+
 main.o: bst.o
 	$(G) -c main.cpp -o $(MAIN)
 
@@ -33,3 +39,4 @@ dir:
 	mkdir -p build
 
 clean: dir
+	rm $(ARCH)
