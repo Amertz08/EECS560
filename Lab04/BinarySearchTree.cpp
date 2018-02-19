@@ -32,12 +32,20 @@ void BinarySearchTree::_insert(Node *target, Node* newNode) {
             return;
         }
         this->_insert(target->getLeft(), newNode);
-    } else {
+    } else if (*newNode > *target){
         if (target->getRight() == nullptr) {
             target->setRight(newNode);
             return;
         }
         this->_insert(target->getRight(), newNode);
+    } else {
+        Node* rightTree = target->getRight();
+        if (rightTree) {
+            newNode->setRight(rightTree);
+            rightTree->setParent(newNode);
+        }
+        target->setRight(newNode);
+        newNode->setParent(target);
     }
 }
 
@@ -191,18 +199,53 @@ void BinarySearchTree::deleteValue(int value) {
         Node* parent = target->getParent();
         Node* left = target->getLeft();
         Node* right = target->getRight();
-        if (*target < *parent) {
-            parent->setLeft(nullptr);
-            if (left)
-                this->_insert(parent, left);
-            if (right)
-                this->_insert(parent, right);
+        if (parent) {
+            if (left && right) {
+                auto minNode = this->_findMin(right);
+                minNode->setLeft(left);
+                minNode->setParent(parent);
+                left->setParent(minNode);
+
+                if (*minNode < *parent) {
+                    parent->setLeft(minNode);
+                } else {
+                    parent->setRight(minNode);
+                }
+                if (*minNode != *target) {
+                    minNode->setRight(right);
+                    right->setParent(minNode);
+                }
+            } else if (left) {
+                if (*left < *parent) {
+                    parent->setLeft(left);
+                } else {
+                    parent->setRight(left);
+                }
+            } else {
+                if (*right < *parent) {
+                    parent->setLeft(right);
+                } else {
+                    parent->setRight(right);
+                }
+            }
         } else {
-            parent->setRight(nullptr);
-            if (left)
-                this->_insert(parent, left);
-            if (right)
-                this->_insert(parent, right);
+            // Value is at root
+            if (left && right) {
+                auto minNode = this->_findMin(right);
+                minNode->setLeft(left);
+                left->setParent(minNode);
+
+                if (*minNode != *target) {
+                    minNode->setRight(right);
+                    right->setParent(minNode);
+                }
+                this->root = minNode;
+            } else if (left) {
+                this->root = left;
+            } else {
+                this->root = right;
+            }
+            this->root->setParent(nullptr);
         }
         delete target;
     } else {
