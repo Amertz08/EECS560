@@ -28,12 +28,14 @@ void BinarySearchTree::insert(int value) {
 void BinarySearchTree::_insert(Node *target, Node* newNode) {
     if (*newNode < *target) {
         if (target->getLeft() == nullptr) {
+            newNode->setParent(target);
             target->setLeft(newNode);
             return;
         }
         this->_insert(target->getLeft(), newNode);
     } else if (*newNode > *target){
         if (target->getRight() == nullptr) {
+            newNode->setParent(target);
             target->setRight(newNode);
             return;
         }
