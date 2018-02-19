@@ -97,7 +97,9 @@ void BinarySearchTree::deleteMin() {
     if (parent) {
         parent->setLeft(right);
     } else {
-        right->setParent(nullptr);
+        if (right) {
+            right->setParent(nullptr);
+        }
         this->root = right;
     }
     delete target;
@@ -115,7 +117,9 @@ void BinarySearchTree::deleteMax() {
     if (parent) {
         parent->setRight(left);
     } else {
-        left->setParent(nullptr);
+        if (left) {
+            left->setParent(nullptr);
+        }
         this->root = left;
     }
     delete target;
