@@ -1,7 +1,8 @@
 NM=Mertz
 L=Lab02
 GPP=g++ -g -Wall -std=c++11
-ARCH_NAME=$(NM)_$(L).tar.gz
+LAB=$(NM)_$(L)
+ARCH_NAME=$(LAB).tar.gz
 B=build
 NODE=$(B)/Node.o
 LIST=$(B)/List.o
@@ -22,16 +23,24 @@ testno:
 testbadf:
 	$(BIN) blah.txt
 
-dir:
+builddir:
 	rm -rf $(B)
 	mkdir $(B)
+
+tardir:
+	rm -rf $(LAB)
+	mkdir $(LAB)
+
+dir: builddir tardir
 
 mem:
 	valgrind --leak-check=full --show-leak-kinds=all $(BIN) data.txt
 
-tar:
-	tar -cvf $(ARCH_NAME) $(shell find . -type f -name "*.*pp") \
-	$(IN) Makefile readme.txt
+tar: tardir
+	cp $(shell find . -type f -name "*.*pp") \
+       	$(IN) Makefile readme.txt \
+       	$(LAB)
+	tar -cvf $(ARCH_NAME) $(LAB)
 
 Main.o: Hash.o
 	$(GPP) -c main.cpp -o $(MAIN)

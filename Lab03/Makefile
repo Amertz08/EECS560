@@ -5,7 +5,8 @@ HASH=build/hash.o
 QHASH=build/qhash.o
 DHASH=build/dhash.o
 BIN=build/Lab03
-ARCH=Mertz_Lab03.tar.gz
+LAB=Mertz_Lab03
+ARCH=$(LAB).tar.gz
 ARGS=53 10 13
 
 main: dir main.o
@@ -47,14 +48,22 @@ hash.o: bucket.o
 bucket.o:
 	$(G) -c Bucket.cpp -o $(BUCKET)
 
-tar:
-	tar -cvf $(ARCH) $(shell find . -type f -name "*.*pp") \
-	Makefile readme.txt data.txt data1.txt data2.txt data3.txt \
-	data4.txt data5.txt observations.txt
+tar: tardir
+	cp $(shell find . -type f -name "*.*pp") \
+       	Makefile readme.txt data.txt data1.txt data2.txt data3.txt \
+       	data4.txt data5.txt observations.txt \
+       	$(LAB)
+	tar -cvf $(ARCH) $(LAB)
 
-dir:
+builddir:
 	rm -rf build
 	mkdir -p build
 
+tardir:
+	rm -rf $(LAB)
+	mkdir -p $(LAB)
+
+dir: builddir tardir
+
 clean: dir
-	rm $(ARCH)
+	rm -rf $(ARCH)
