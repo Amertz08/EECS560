@@ -28,8 +28,6 @@ void HashTable::insert(int val) {
 void HashTable::remove(int val) {
     for (int i = 0; i < this->_mod; i++) {
         int hashVal = this->_hash(val, i);
-        if (hashVal > this->_mod)
-            hashVal = hashVal % this->_mod;
         if (this->_buckets[hashVal].getVal() == val) {
             this->_buckets[hashVal].remove();
             return;
@@ -41,8 +39,6 @@ void HashTable::remove(int val) {
 int HashTable::hash(int val) {
     for (int i = 0; i < this->_k; i++) {
         int hashVal = this->_hash(val, i);
-        if (hashVal > this->_mod)
-            hashVal = hashVal % this->_mod;
         if (this->_buckets[hashVal].empty())
             return hashVal;
     }
@@ -67,8 +63,6 @@ void HashTable::print() {
 bool HashTable::find(int val) {
     for (int i = 0; i < this->_k; i++) {
         int hashVal = this->_hash(val, i);
-        while (hashVal > this->_mod)
-            hashVal -= this->_mod;
         if (this->_buckets[hashVal].getVal() == val) {
             return true;
         } else if (this->_buckets[hashVal].beenSet()) {
