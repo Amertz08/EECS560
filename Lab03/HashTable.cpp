@@ -65,7 +65,7 @@ bool HashTable::find(int val) {
         int hashVal = this->_hash(val, i);
         if (this->_buckets[hashVal].getVal() == val) {
             return true;
-        } else if (this->_buckets[hashVal].beenSet()) {
+        } else if (!this->_buckets[hashVal].beenSet()) {
             return false;
         }
     }
