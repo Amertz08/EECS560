@@ -48,24 +48,86 @@ int testInsert(HashTable* table, int testCount, int maxInsertions, int maxRange)
     return totalTime / testCount;
 }
 
+int* testFind(HashTable* table, int maxRange) {
+    auto totalTime = new int[2]();
+    int tests = 10000;
+    std::srand((unsigned)std::time(nullptr)); // Random seed
+    for (int i = 0; i < tests; i++) {
+        auto searchVal = generateNumber(maxRange);
+        auto start = std::clock();
+        auto found = table->Find(searchVal);
+        auto elapsed = std::clock() - start;
+        if (found) {
+            totalTime[0] += elapsed;
+        } else {
+            totalTime[1] += elapsed;
+        }
+    }
+    return totalTime;
+}
+
+void printRow(int **row, int n) {
+    std::string rowType;
+
+    if (n == 0) {
+        rowType = "Build ";
+    } else if (n == 1) {
+        rowType = "Found ";
+    } else {
+        rowType = "Not Found ";
+    }
+
+    std::cout << rowType;
+    for (int j = 0; j < 5; j++) {
+        std::cout << row[j][n] << " ";
+    }
+    std::cout << std::endl;
+}
+
 
 int main(int argc, char* argv[]) {
     const int m = 1000003;
     const int p = 997;
     const int k = 20;
-    const int maxInsertions = 100000;
+    int maxInsertions[5] = {100000, 200000, 300000, 400000, 500000};
     const int maxRange = 5000000;
 
-    OpenHashTable openTable(m);
-    QHashTable  qTable(m, k);
-    DHashTable dTable(m, k, p);
+    // Results array for each type of table
+    int*** results = new int**[3];
+    for (int i = 0; i < 3; i++) {
+        // For each table type create a results array
+        results[i] = new int*[5];
+        for (int j = 0; j < 5; j++) {
+            HashTable* table;
+            results[i][j] = new int[3]();
+            if (i == 0) {
+                table = new OpenHashTable(m);
+            } else if (i == 1) {
+                table = new QHashTable(m, k);
+            } else {
+                table = new DHashTable(m, k, p);
+            }
 
+            results[i][j][0] = testInsert(table, 5, maxInsertions[j], maxRange);
+            auto tmp = testFind(table, maxRange);
+            results[i][j][1] = tmp[0];
+            results[i][j][2] = tmp[1];
+        }
+    }
 
-    auto val = testInsert(&qTable, 5, maxInsertions, maxRange);
-    std::cout << val << " CPU clocks\n";
-    val = testInsert(&dTable, 5, maxInsertions, maxRange);
-    std::cout << val << " CPU clocks\n";
-    val = testInsert(&openTable, 5, maxInsertions, maxRange);
-    std::cout << val << " CPU clocks\n";
+    for (int i = 0; i < 3; i++) {
+        if (i == 0) {
+            std::cout << "Open Hashing Performance\n";
+        } else if (i == 1) {
+            std::cout << "Quadratic Hashing Performance\n";
+        } else {
+            std::cout << "Double Hashing Performance\n";
+        }
 
+        for (int j = 0; j < 3; j++)
+            printRow(results[i], j);
+        std::cout << std::endl;
+    }
+
+    return 0;
 }
