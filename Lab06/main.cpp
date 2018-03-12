@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip>
 #include "OpenHashTable.hpp"
 #include "DHashTable.hpp"
 #include "QHashTable.hpp"
@@ -39,24 +40,24 @@ int _testInsert(HashTable* table, int maxInsertions, int maxRange) {
  * @param maxRange : highest value of random number range
  * @return : average time for the amount of test cases
  */
-int testInsert(HashTable* table, int testCount, int maxInsertions, int maxRange) {
+float testInsert(HashTable* table, int testCount, int maxInsertions, int maxRange) {
     int totalTime = 0;
     for (int i = 0; i < testCount; i++) {
         std::srand((unsigned)i);
         totalTime += _testInsert(table, maxInsertions, maxRange);
     }
-    return totalTime / testCount;
+    return ((float)totalTime / (float)testCount) / (float)CLOCKS_PER_SEC;
 }
 
-int* testFind(HashTable* table, int maxRange) {
-    auto totalTime = new int[2]();
+float* testFind(HashTable* table, int maxRange) {
+    auto totalTime = new float[2]();
     int tests = 10000;
     std::srand((unsigned)std::time(nullptr)); // Random seed
     for (int i = 0; i < tests; i++) {
         auto searchVal = generateNumber(maxRange);
         auto start = std::clock();
         auto found = table->Find(searchVal);
-        auto elapsed = std::clock() - start;
+        auto elapsed = (float)(std::clock() - start) / (float)CLOCKS_PER_SEC;
         if (found) {
             totalTime[0] += elapsed;
         } else {
@@ -66,7 +67,7 @@ int* testFind(HashTable* table, int maxRange) {
     return totalTime;
 }
 
-void printRow(int **row, int n) {
+void printRow(float **row, int n, int numTests) {
     std::string rowType;
 
     if (n == 0) {
@@ -78,8 +79,8 @@ void printRow(int **row, int n) {
     }
 
     std::cout << rowType;
-    for (int j = 0; j < 5; j++) {
-        std::cout << row[j][n] << " ";
+    for (int j = 0; j < numTests; j++) {
+        std::cout << fixed << std::setprecision(4) << row[j][n] << " ";
     }
     std::cout << std::endl;
 }
@@ -89,17 +90,18 @@ int main(int argc, char* argv[]) {
     const int m = 1000003;
     const int p = 997;
     const int k = 20;
+    const int numTests = 5;
     int maxInsertions[5] = {100000, 200000, 300000, 400000, 500000};
     const int maxRange = 5000000;
 
     // Results array for each type of table
-    int*** results = new int**[3];
+    float*** results = new float**[3];
     for (int i = 0; i < 3; i++) {
         // For each table type create a results array
-        results[i] = new int*[5];
-        for (int j = 0; j < 5; j++) {
+        results[i] = new float*[numTests];
+        for (int j = 0; j < numTests; j++) {
             HashTable* table;
-            results[i][j] = new int[3]();
+            results[i][j] = new float[3]();
             if (i == 0) {
                 table = new OpenHashTable(m);
             } else if (i == 1) {
@@ -112,6 +114,9 @@ int main(int argc, char* argv[]) {
             auto tmp = testFind(table, maxRange);
             results[i][j][1] = tmp[0];
             results[i][j][2] = tmp[1];
+            // TODO: segfault if delete called
+//            std::cout << "i: " << i << " j: " << j << "\n";
+//            delete table;
         }
     }
 
@@ -125,7 +130,7 @@ int main(int argc, char* argv[]) {
         }
 
         for (int j = 0; j < 3; j++)
-            printRow(results[i], j);
+            printRow(results[i], j, numTests);
         std::cout << std::endl;
     }
 
