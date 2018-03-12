@@ -142,6 +142,11 @@ void run() {
     }
 }
 
+/*
+ * TODO: Memleaks
+ * TODO: OpenHash destructor
+ * TODO: multithreading
+ */
 int main() {
 
     int k = 4;
