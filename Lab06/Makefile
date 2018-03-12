@@ -1,4 +1,5 @@
 G=g++ -g -Wall -std=c++11
+NAME=Mertz_Lab06
 
 BIN=build/Lab06
 M=build/Main.o
@@ -10,6 +11,7 @@ H=build/Hash.o
 Q=build/QHash.o
 O=build/OHash.o
 OBJ=$(M) $(N) $(L) $(B) $(D) $(H) $(Q) $(O)
+ARCH=$(NAME).tar.gz
 
 
 build: dir List.o tables Main.o
@@ -44,7 +46,15 @@ List.o: Node.o
 Node.o:
 	$(G) -c Node.cpp -o $(N)
 
+tar: dir
+	cp $(shell find . -type f -name "*.*pp") \
+       	Makefile data.txt report.txt \
+       	$(NAME)
+	tar -cvf $(ARCH) $(NAME)
+
 dir:
+	rm -rf $(NAME)
+	mkdir $(NAME)
 	rm -rf build
 	mkdir build
 
