@@ -51,6 +51,12 @@ float testInsert(HashTable* table, int testCount, int maxInsertions, int maxRang
     return ((float)totalTime / (float)testCount) / (float)CLOCKS_PER_SEC;
 }
 
+/**
+ * Tests the performance of find for the given table
+ * @param table : table to test
+ * @param maxRange : max value for range of random numbers
+ * @return : Average time of tests
+ */
 float* testFind(HashTable* table, int maxRange) {
     auto totalTime = new float[2]();
     int tests = 10000;
