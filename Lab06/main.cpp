@@ -1,12 +1,15 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <thread>
 #include <iomanip>
 #include <fstream>
 #include <vector>
 #include "OpenHashTable.hpp"
 #include "DHashTable.hpp"
 #include "QHashTable.hpp"
+
+int insertTimes[5] = {0};
 
 /**
  * Returns random int from 1 <= max
@@ -24,14 +27,15 @@ int generateNumber(int max) {
  * @param maxRange : highest value of random number range
  * @return : total insert time
  */
-int _testInsert(HashTable* table, int maxInsertions, int maxRange) {
+void _testInsert(HashTable* table, int threadID, int maxInsertions, int maxRange) {
+    std::srand((unsigned)threadID);
     int insertTime = 0;
     for (int i = 0; i < maxInsertions; i++) {
         auto start = std::clock();
         table->Insert(generateNumber(maxRange));
         insertTime += std::clock() - start;
     }
-    return insertTime;
+    insertTimes[threadID] = insertTime;
 }
 
 /**
@@ -44,9 +48,14 @@ int _testInsert(HashTable* table, int maxInsertions, int maxRange) {
  */
 float testInsert(HashTable* table, int testCount, int maxInsertions, int maxRange) {
     int totalTime = 0;
+    std::thread t[testCount];
     for (int i = 0; i < testCount; i++) {
-        std::srand((unsigned)i);
-        totalTime += _testInsert(table, maxInsertions, maxRange);
+        t[i] = std::thread(_testInsert, table, i, maxInsertions, maxRange);
+    }
+
+    for (int i = 0; i < testCount; i++) {
+        t[i].join();
+        totalTime += insertTimes[i];
     }
     return ((float)totalTime / (float)testCount) / (float)CLOCKS_PER_SEC;
 }
@@ -118,6 +127,9 @@ void run() {
             }
 
             results[i][j][0] = testInsert(table, 5, maxInsertions[j], maxRange);
+            for (int x = 0; x < 5; x++) {
+                insertTimes[x] = 0;
+            }
             auto tmp = testFind(table, maxRange);
             results[i][j][1] = tmp[0];
             results[i][j][2] = tmp[1];
