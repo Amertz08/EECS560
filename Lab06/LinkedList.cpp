@@ -19,7 +19,6 @@ void LinkedList::insert(int value) {
         this->head = new Node(value);
         return;
     } else if (this->find(value) != nullptr) {
-        std::cout << "Value is already in the list" << std::endl;
         return;
     }
     Node* tmp = this->head;
@@ -28,7 +27,6 @@ void LinkedList::insert(int value) {
 
 void LinkedList::insert_front(int value) {
     if (this->find(value) != nullptr) {
-        std::cout << "Value is already in the list" << std::endl;
         return;
     }
     Node* tmp = this->head;
