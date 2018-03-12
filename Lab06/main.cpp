@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <fstream>
+#include <vector>
 #include "OpenHashTable.hpp"
 #include "DHashTable.hpp"
 #include "QHashTable.hpp"
@@ -85,8 +87,7 @@ void printRow(float **row, int n, int numTests) {
     std::cout << std::endl;
 }
 
-
-int main(int argc, char* argv[]) {
+void run() {
     const int m = 1000003;
     const int p = 997;
     const int k = 20;
@@ -133,6 +134,72 @@ int main(int argc, char* argv[]) {
             printRow(results[i], j, numTests);
         std::cout << std::endl;
     }
+}
+
+int main() {
+
+    int k = 4;
+    int p = 5;
+    std::vector<int> data;
+    std::fstream file("data.txt");
+
+    if (file.is_open()) {
+        int input;
+        while (file >> input) {
+            data.push_back(input);
+        }
+        file.close();
+    } else {
+        std::cerr << "data.txt could not be opened\n";
+        exit(1);
+    }
+
+    int choice = 0;
+    do {
+        std::cout << "1 - Test HashTables\n"
+                  << "2 - Performance Comparison\n"
+                  << "3 - Exit\n"
+                  << "> ";
+        std::cin >> choice;
+
+        int m;
+        OpenHashTable* openTable;
+        QHashTable* qTable;
+        DHashTable* dTable;
+        switch (choice) {
+            case 1:
+                std::cout << "Table size: ";
+                std::cin >> m;
+                openTable = new OpenHashTable(m);
+                qTable = new QHashTable(m, k);
+                dTable = new DHashTable(m, k, p);
+                for (auto num : data) {
+                    openTable->Insert(num);
+                    qTable->Insert(num);
+                    dTable->Insert(num);
+                }
+
+                std::cout << "Open Table\n";
+                openTable->Print();
+                std::cout << "QTable\n";
+                qTable->Print();
+                std::cout << "DTable\n";
+                dTable->Print();
+
+//                delete openTable;
+                delete qTable;
+                delete dTable;
+                break;
+            case 2:
+                run();
+                break;
+            case 3:
+                std::cout << "Exiting...\n";
+                break;
+            default:
+                std::cout << "Invalid choice!\n";
+        }
+    } while (choice != 3);
 
     return 0;
 }

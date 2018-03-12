@@ -5,6 +5,7 @@ OpenHashTable::OpenHashTable(int mod) : HashTable(mod) {
     this->_list = new LinkedList[mod];
 }
 
+// TODO: does not work
 OpenHashTable::~OpenHashTable() {
     delete[] this->_list;
 }
