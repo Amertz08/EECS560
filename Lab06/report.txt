@@ -1,0 +1,37 @@
+1 - Organization and Experimental profiling
+
+I created a base class for all hash tables to inherit from. This was consistent with Lab03 but I had to make changes
+to my open hash table from Lab02 as it did not inherit from the base class. Nearly all methods became virtual methods
+to ensure the ones that needed to be overwritten in the inherited class were properly overwritten. This was necessary
+given the distinct difference in several of the methods on the open hash table. Also by having all classes inherit from
+a universal base class I was able to write functions that took in a pointer to this base class and operated on the
+derived classes. This kept the helper functions I wrote to run the tests to a minimum.
+
+2 - Input data generating using random number generator
+
+We used srand & rand in this lab which allowed us to have consistent sequence of random numbers input into our tables.
+The downside is that rand doesn't follow a uniform distribution.
+
+3 - CPU Time recording in C++
+
+For this we simply used std::clock which gave us processor time used by the program so far. We invoked this call immediately
+before and after our insert call to find the time it took to execute the method. The difference between the two divided
+by CLOCKS_PER_SEC gave us the time in seconds.
+
+4 - Data recording and analysis
+
+To do this I implemented a 2-D array of float pointers. The first index determined the type of table we were looking at.
+The second index determined which test case we were looking at i.e. 100k, 200k, etc. and the pointer itself held the 3
+values for the results.
+
+5 - Performance comparision, observations and summary
+
+The open hash table performed the worst for the first 3 test cases (100k, 200k, 300k) but actually outperformed for the
+last 2 (400k, 500k). This was likely due to the fact that as the tables became more full they had to attempt to find a
+new hash more frequently thus increasing insertion time vs. simply inserting the value in the list. For the first 3
+tests the Quadratic hash outperformed all other tables.
+
+6 - Conclusion
+
+The results seem slightly inconsistent with expectations. The open table uses linear hashing which should have the best
+locality performance and not have to recompute the hash in the event of a collision.
