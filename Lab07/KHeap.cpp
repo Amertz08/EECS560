@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "KHeap.hpp"
 
 KHeap::KHeap(int k) {
@@ -8,3 +10,8 @@ KHeap::KHeap(int k) {
 
 KHeap::~KHeap() { delete[] this->_heap; }
 
+int KHeap::_parentIndex(int index) { return int(floor((index - 1) / this->_k)); }
+
+int KHeap::_nthChildIndex(int i, int n) { return this->_k * i + n; }
+
+int KHeap::_nthChild(int i, int n) { return this->_heap[this->_nthChildIndex(i, n)]; }
