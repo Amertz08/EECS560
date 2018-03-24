@@ -49,6 +49,18 @@ private:
      */
     int _nthChild(int i, int n);
 
+    /**
+     * Returns index of min value
+     * @return
+     */
+    int _minIndex();
+
+    /**
+     * Returns index of max value
+     * @return
+     */
+    int _maxIndex();
+
 public:
     /**
      * Min5 heap class
@@ -81,6 +93,28 @@ public:
      * Prints the heap in index order
      */
     void Print();
+
+    /**
+     * Returns min value of heap
+     * @return
+     */
+    int FindMin();
+
+    /**
+     * Returns max value of heap
+     * @return
+     */
+    int FindMax();
+
+    /**
+     * Delete min value in heap
+     */
+    void DeleteMin();
+
+    /**
+     * Delete max value in heap
+     */
+    void DeleteMax();
 };
 
 

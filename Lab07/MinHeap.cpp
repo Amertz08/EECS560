@@ -110,3 +110,41 @@ void MinHeap::Print() {
         this->_printNode(i);
     }
 }
+
+int MinHeap::_minIndex() {
+    return 0;
+}
+
+int MinHeap::_maxIndex() {
+    int maxIndex = 0;
+    int max = this->_heap[maxIndex];
+
+    for (int i = 0; i < this->_size - 1; i++) {
+        auto val = this->_heap[i];
+        if (val > max) {
+            max = val;
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+int MinHeap::FindMin() {
+    return this->_heap[this->_minIndex()];
+}
+
+int MinHeap::FindMax() {
+    return this->_heap[this->_maxIndex()];
+}
+
+void MinHeap::DeleteMin() {
+    if (this->_size == 0) {
+        std::cout << "Empty heap\n";
+        return;
+    } else if (this->_size == 1) {
+        this->_heap[0] = 0;
+        return;
+    } else {
+
+    }
+}
