@@ -5,7 +5,7 @@
 #define DEFAULT_K 2
 
 class KHeap {
-private:
+protected:
     int* _heap;
     int _k, _size;
 

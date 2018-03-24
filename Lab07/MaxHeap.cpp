@@ -2,48 +2,7 @@
 #include <math.h>
 #include "MaxHeap.hpp"
 
-MaxHeap::MaxHeap() {
-    this->_heap = new int[HEAP_SIZE]();
-    this->_k = 5;
-    this->_size = 0;
-}
-
-MaxHeap::~MaxHeap() { delete this->_heap; }
-
 bool MaxHeap::_compare(int parent, int child) { return parent < child; }
-
-int MaxHeap::_parentIndex(int index) { return int(floor((index - 1) / this->_k)); }
-
-void MaxHeap::_printNode(int index) {
-    std::cout << "Node: " << this->_heap[index] << std::endl << "Children: ";
-    for (int n = 1; n <= this->_k; n++) {
-        std::cout << this->_nthChild(index, n) << " ";
-    }
-    std::cout << std::endl;
-}
-
-int MaxHeap::_nthChildIndex(int i, int n) { return this->_k * i + n; }
-
-int MaxHeap::_nthChild(int i, int n) { return this->_heap[this->_nthChildIndex(i, n)]; }
-
-void MaxHeap::BuildHeap() {
-    // Get most recent insertion index and value
-    int targetIndex = this->_size - 1;
-
-    // See if we are at root
-    if (targetIndex == 0) {
-        // Do nothing
-        return;
-    }
-
-    // Get the last heap
-    auto lastHeap = this->_parentIndex(targetIndex);
-
-    // Down heap the rest
-    for (int i = lastHeap; i >= 0; i--) {
-        this->_downHeap(i);
-    }
-}
 
 void MaxHeap::_downHeap(int index) {
     auto targetValue = this->_heap[index];
@@ -67,52 +26,6 @@ void MaxHeap::_downHeap(int index) {
     }
 }
 
-void MaxHeap::Insert(int value) {
-    // Put value at end
-    this->Push(value);
-
-    // Check up heap if swaps should happen
-    this->_upHeap(this->_size - 1);
-}
-
-void MaxHeap::Push(int value) {
-    this->_heap[this->_size] = value;
-    this->_size++;
-}
-
-void MaxHeap::_upHeap(int index) {
-    // Get value
-    auto targetValue = this->_heap[index];
-
-    // Get parent value
-    auto parentIndex = this->_parentIndex(index);
-    auto parentValue = this->_heap[parentIndex];
-
-    // Check if we need to swap
-    if (this->_compare(parentValue, targetValue)) {
-        // Swap
-        this->_heap[parentIndex] = targetValue;
-        this->_heap[index] = parentValue;
-
-        // If parent is root we don't continue
-        if (!parentIndex) {
-            return;
-        }
-        this->_upHeap(parentIndex);
-    }
-}
-
-void MaxHeap::Print() {
-    for (int i = 0; i < this->_size; i++) {
-        std::cout << this->_heap[i] << " ";
-    }
-    std::cout << std::endl;
-
-    for (int i = 0; i < this->_size; i++) {
-        this->_printNode(i);
-    }
-}
-
 int MaxHeap::_minIndex() {
     int minIndex = 0;
     int min = this->_heap[minIndex];
@@ -129,14 +42,6 @@ int MaxHeap::_minIndex() {
 
 int MaxHeap::_maxIndex() {
     return 0;
-}
-
-int MaxHeap::FindMin() {
-    return this->_heap[this->_minIndex()];
-}
-
-int MaxHeap::FindMax() {
-    return this->_heap[this->_maxIndex()];
 }
 
 void MaxHeap::DeleteMin() {
@@ -193,32 +98,5 @@ void MaxHeap::DeleteMax() {
             this->_heap[i] = this->_heap[i + 1];
         }
         this->_size--;
-    }
-}
-
-void MaxHeap::LevelOrder() {
-    if (!this->_size) {
-        std::cout << "Empty Heap\n";
-    } else {
-        int levels = 1;
-
-        while (pow(this->_k, levels) < this->_size)
-            levels++;
-
-        int start = 0;
-        for (int i = 0; i <= levels; i++) {
-            auto end = (int)pow(this->_k, i);
-            if (i != 0)
-                end++;
-            for (int j = start; j < end; j++) {
-                std::cout << this->_heap[j] << " ";
-                if (j % this->_k == 0 && i != 0 && j != end - 1) {
-                    std::cout << "- ";
-                }
-            }
-            std::cout << std::endl;
-            start = end;
-
-        }
     }
 }
