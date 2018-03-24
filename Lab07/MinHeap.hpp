@@ -115,6 +115,11 @@ public:
      * Delete max value in heap
      */
     void DeleteMax();
+
+    /**
+     * Prints level order
+     */
+    void LevelOrder();
 };
 
 

@@ -197,3 +197,30 @@ void MinHeap::DeleteMax() {
         this->_size--;
     }
 }
+
+void MinHeap::LevelOrder() {
+    if (!this->_size) {
+        std::cout << "Empty Heap\n";
+    } else {
+        int levels = 1;
+
+        while (pow(this->_k, levels) < this->_size)
+            levels++;
+
+        int start = 0;
+        for (int i = 0; i <= levels; i++) {
+            auto end = (int)pow(this->_k, i);
+            if (i != 0)
+                end++;
+            for (int j = start; j < end; j++) {
+                std::cout << this->_heap[j] << " ";
+                if (j % this->_k == 0 && i != 0 && j != end - 1) {
+                    std::cout << "- ";
+                }
+            }
+            std::cout << std::endl;
+            start = end;
+
+        }
+    }
+}
