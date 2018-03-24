@@ -20,7 +20,9 @@ void MinHeap::_printNode(int index) {
     std::cout << std::endl;
 }
 
-int MinHeap::_nthChild(int i, int n) { return this->_heap[this->_k * i + n]; }
+int MinHeap::_nthChildIndex(int i, int n) { return this->_k * i + n; }
+
+int MinHeap::_nthChild(int i, int n) { return this->_heap[this->_nthChildIndex(i, n)]; }
 
 void MinHeap::BuildHeap() {
     // Get most recent insertion index and value
@@ -32,28 +34,31 @@ void MinHeap::BuildHeap() {
         return;
     }
 
-    // Continue
-    this->_buildHeap(targetIndex);
+
 }
 
-void MinHeap::_buildHeap(int targetIndex) {
-    auto targetVal = this->_heap[targetIndex];
-    auto parentIndex = this->_parentIndex(targetIndex);
-    auto parentVal =  this->_heap[parentIndex];
+void MinHeap::_downHeap(int index) {
+    if (index == this->_size - 1) {
+        return;
+    }
+    auto targetValue = this->_heap[index];
+    auto min = targetValue;
+    auto minIndex = index;
 
-    // If parent is greater we need to swap
-    if (parentVal > targetVal) {
-        this->_heap[targetIndex] = parentVal;
-        this->_heap[parentIndex] = targetVal;
-
-        // If parent is root
-        if (parentIndex == 0) {
-            // Do nothing
-            return;
+    for (int n = 1; n <= this->_k; n++) {
+        auto childValue = this->_nthChild(index, n);
+        if (childValue < min && childValue != 0) {
+            min = childValue;
+            minIndex = this->_nthChildIndex(index, n);
         }
+    }
 
-        // Continue
-        this->_buildHeap(parentIndex);
+    // If one of the children is less than the target value swap
+    if (min != targetValue) {
+        this->_heap[index] = min;
+        this->_heap[minIndex] = targetValue;
+        // Continue down child node
+        this->_downHeap(minIndex);
     }
 }
 
