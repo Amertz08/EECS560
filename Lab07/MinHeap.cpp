@@ -34,13 +34,16 @@ void MinHeap::BuildHeap() {
         return;
     }
 
+    // Get the last heap
+    auto lastHeap = this->_parentIndex(targetIndex);
 
+    // Down heap the rest
+    for (int i = lastHeap; i >= 0; i--) {
+        this->_downHeap(i);
+    }
 }
 
 void MinHeap::_downHeap(int index) {
-    if (index == this->_size - 1) {
-        return;
-    }
     auto targetValue = this->_heap[index];
     auto min = targetValue;
     auto minIndex = index;
