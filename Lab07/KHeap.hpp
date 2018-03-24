@@ -117,6 +117,21 @@ public:
      */
     int FindMax();
 
+    /**
+     * Delete min value in heap
+     */
+    virtual void DeleteMin() = 0;
+
+    /**
+     * Delete max value in heap
+     */
+    virtual void DeleteMax() = 0;
+
+    /**
+     * Prints level order
+     */
+    void LevelOrder();
+
 
 };
 
