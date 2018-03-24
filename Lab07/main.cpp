@@ -44,8 +44,8 @@ int main(int argc, char* argv[]) {
                       << "choice > ";
             std::cin >> choice;
 
+            int value;
             switch (choice) {
-                int value;
                 case 1:
                     std::cout << "Insert value: ";
                     std::cin >> value;
