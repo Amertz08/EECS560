@@ -58,13 +58,19 @@ private:
      */
     virtual void _downHeap(int index) = 0;
 
+    /**
+     * Recurse up heap swapping values as needed
+     * @param index : start index
+     */
+    void _upHeap(int index);
+
 public:
 
     /**
-     * K-Heap inteface
+     * K-Heap interface
      * @param k
      */
-    KHeap(int k);
+    explicit KHeap(int k);
 
     /**
      * Destructor
@@ -75,6 +81,20 @@ public:
      * Heapifies heap
      */
     void BuildHeap();
+
+    /**
+     * Inserts value into heap
+     * @param value
+     */
+    void Insert(int value);
+
+    /**
+     * Adds value to next available spot
+     * @param value
+     */
+    void Push(int value);
+
+
 };
 
 

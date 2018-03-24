@@ -16,6 +16,28 @@ int KHeap::_nthChildIndex(int i, int n) { return this->_k * i + n; }
 
 int KHeap::_nthChild(int i, int n) { return this->_heap[this->_nthChildIndex(i, n)]; }
 
+void KHeap::_upHeap(int index) {
+    // Get value
+    auto targetValue = this->_heap[index];
+
+    // Get parent value
+    auto parentIndex = this->_parentIndex(index);
+    auto parentValue = this->_heap[parentIndex];
+
+    // Check if we need to swap
+    if (this->_compare(parentValue, targetValue)) {
+        // Swap
+        this->_heap[parentIndex] = targetValue;
+        this->_heap[index] = parentValue;
+
+        // If parent is root we don't continue
+        if (!parentIndex) {
+            return;
+        }
+        this->_upHeap(parentIndex);
+    }
+}
+
 void KHeap::BuildHeap() {
     // Get most recent insertion index and value
     int targetIndex = this->_size - 1;
@@ -33,4 +55,17 @@ void KHeap::BuildHeap() {
     for (int i = lastHeap; i >= 0; i--) {
         this->_downHeap(i);
     }
+}
+
+void KHeap::Insert(int value) {
+    // Put value at end
+    this->Push(value);
+
+    // Check up heap if swaps should happen
+    this->_upHeap(this->_size - 1);
+}
+
+void KHeap::Push(int value) {
+    this->_heap[this->_size] = value;
+    this->_size++;
 }
