@@ -52,6 +52,12 @@ private:
      */
     virtual int _maxIndex() = 0;
 
+    /**
+     * Recurse down heap finding new min or max
+     * @param index : start index
+     */
+    virtual void _downHeap(int index) = 0;
+
 public:
 
     /**
@@ -64,6 +70,11 @@ public:
      * Destructor
      */
     ~KHeap();
+
+    /**
+     * Heapifies heap
+     */
+    void BuildHeap();
 };
 
 
