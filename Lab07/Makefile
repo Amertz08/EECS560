@@ -8,6 +8,7 @@ MAX=build/max.o
 OBJS=$(K) $(MIN) $(MAX)
 BIN=build/Lab07
 TEST=build/Lab07Test
+ARCH=$(NAME).tar.gz
 
 build: dir main.o test.o
 	$(G) $(M) $(OBJS) -o $(BIN)
@@ -34,8 +35,17 @@ min.o: kheap.o MinHeap.cpp
 kheap.o: KHeap.cpp
 	$(G) -c KHeap.cpp -o $(K)
 
+tar: dir
+	cp $(shell find . -type f -name "*.*pp") \
+		Makefile data.txt README.txt \
+		$(NAME)
+	tar -cvf $(ARCH) $(NAME)
+
 dir:
+	rm -rf $(NAME)
+	mkdir $(NAME)
 	rm -rf build
 	mkdir build
 
 clean: dir
+	rm $(ARCH)
