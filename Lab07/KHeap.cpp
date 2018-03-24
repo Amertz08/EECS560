@@ -3,6 +3,12 @@
 
 #include "KHeap.hpp"
 
+KHeap::KHeap() {
+    this->_heap = new int[MAX_HEAP_SIZE]();
+    this->_k = DEFAULT_K;
+    this->_size = 0;
+}
+
 KHeap::KHeap(int k) {
     this->_heap = new int[MAX_HEAP_SIZE]();
     this->_k = k;
