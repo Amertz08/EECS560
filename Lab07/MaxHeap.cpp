@@ -1,5 +1,4 @@
 #include <iostream>
-#include <math.h>
 #include "MaxHeap.hpp"
 
 bool MaxHeap::_compare(int parent, int child) { return parent < child; }
