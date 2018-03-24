@@ -9,9 +9,32 @@ private:
     int _k, _size;
 
     void _buildHeap(int targetIndex);
+
+    /**
+     * Finds parent index for given node index
+     * @param index : node index
+     * @return parent index
+     */
     int _parentIndex(int index);
+
+    /**
+     * Recurse up heap swapping values as needed
+     * @param index : start index
+     */
     void _upHeap(int index);
+
+    /**
+     * Prints node value and children values
+     * @param index : node index to print
+     */
     void _printNode(int index);
+
+    /**
+     * Returns value of nth child of ith node
+     * @param i : node index
+     * @param n : nth child
+     * @return value of nth child
+     */
     int _nthChild(int i, int n);
 
 public:
