@@ -90,3 +90,11 @@ void KHeap::Print() {
         this->_printNode(i);
     }
 }
+
+int KHeap::FindMin() {
+    return this->_heap[this->_minIndex()];
+}
+
+int KHeap::FindMax() {
+    return this->_heap[this->_maxIndex()];
+}

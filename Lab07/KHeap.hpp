@@ -105,6 +105,18 @@ public:
      */
     void Print();
 
+    /**
+     * Returns min value of heap
+     * @return
+     */
+    int FindMin();
+
+    /**
+     * Returns max value of heap
+     * @return
+     */
+    int FindMax();
+
 
 };
 
