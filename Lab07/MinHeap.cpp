@@ -180,17 +180,12 @@ void MinHeap::DeleteMax() {
     } else {
         // Root has children
         auto maxIndex = this->_maxIndex();
-        auto max = this->_heap[maxIndex];
 
-        // Look through children and find new max
-        for (int i = maxIndex + 1; i < this->_k; i++) {
-            if (this->_heap[i] > max) {
-                max = this->_heap[i];
-                maxIndex = i;
-            }
-        }
-
-        // Shift remaining values left
+        /*
+         * Max value in Min heap would have to be in a leaf.
+         * Because of this we can simply shift all values after
+         * it to the left.
+         */
         for (int i = maxIndex; i < this->_size; i++) {
             this->_heap[i] = this->_heap[i + 1];
         }
