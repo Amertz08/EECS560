@@ -3,7 +3,34 @@
 #include <string>
 
 #include "MinHeap.hpp"
-#include "MaxHeap.cpp"
+#include "MaxHeap.hpp"
+
+void printMinMax(KHeap* heap) {
+    std::cout << "Min: " << heap->FindMin() << " Max: " << heap->FindMax() << std::endl;
+}
+
+void test(KHeap* heap) {
+    heap->Print();
+    heap->LevelOrder();
+    printMinMax(heap);
+    std::cout << "Calling BuildHeap\n";
+    heap->BuildHeap();
+    heap->Print();
+    heap->LevelOrder();
+    printMinMax(heap);
+
+    std::cout << "Calling DeleteMin\n";
+    heap->DeleteMin();
+    heap->Print();
+    heap->LevelOrder();
+    printMinMax(heap);
+
+    std::cout << "Calling DeleteMax\n";
+    heap->DeleteMax();
+    heap->Print();
+    heap->LevelOrder();
+    printMinMax(heap);
+}
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
@@ -15,7 +42,8 @@ int main(int argc, char* argv[]) {
     std::string fileName = argv[1];
     std::cout << fileName << std::endl;
 
-    MaxHeap min;
+    MaxHeap max(5);
+    MinHeap min(5);
 
     file.open(fileName);
     if (file) {
@@ -24,27 +52,14 @@ int main(int argc, char* argv[]) {
 
         while (file >> input) {
             min.Push(input);
-//            min.Insert(input);
+            max.Push(input);
         }
         file.close();
 
-        min.Print();
-        min.BuildHeap();
-        min.Print();
-
-        std::cout << "1 Min: " << min.FindMin() << " Max: " << min.FindMax() << std::endl;
-
-        std::cout << "Deleting min\n";
-        min.DeleteMin();
-//        min.Print();
-        std::cout << "2 Min: " << min.FindMin() << " Max: " << min.FindMax() << std::endl;
-
-        std::cout << "Deleting max\n";
-        min.DeleteMax();
-//        min.Print();
-        std::cout << "3 Min: " << min.FindMin() << " Max: " << min.FindMax() << std::endl;
-
-        min.LevelOrder();
+        std::cout << "Testing min\n";
+        test(&min);
+        std::cout << "Testing max\n";
+        test(&max);
     } else {
         std::cerr << "Could not open file\n";
         exit(1);
