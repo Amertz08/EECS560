@@ -1,3 +1,4 @@
+#include <iostream>
 #include <math.h>
 
 #include "KHeap.hpp"
@@ -38,6 +39,15 @@ void KHeap::_upHeap(int index) {
     }
 }
 
+void KHeap::_printNode(int index) {
+    std::cout << "Node: " << this->_heap[index] << std::endl << "Children: ";
+    for (int n = 1; n <= this->_k; n++) {
+        std::cout << this->_nthChild(index, n) << " ";
+    }
+    std::cout << std::endl;
+}
+
+
 void KHeap::BuildHeap() {
     // Get most recent insertion index and value
     int targetIndex = this->_size - 1;
@@ -68,4 +78,15 @@ void KHeap::Insert(int value) {
 void KHeap::Push(int value) {
     this->_heap[this->_size] = value;
     this->_size++;
+}
+
+void KHeap::Print() {
+    for (int i = 0; i < this->_size; i++) {
+        std::cout << this->_heap[i] << " ";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < this->_size; i++) {
+        this->_printNode(i);
+    }
 }

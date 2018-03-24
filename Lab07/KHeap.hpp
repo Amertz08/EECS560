@@ -64,6 +64,12 @@ private:
      */
     void _upHeap(int index);
 
+    /**
+    * Prints node value and children values
+    * @param index : node index to print
+    */
+    void _printNode(int index);
+
 public:
 
     /**
@@ -93,6 +99,11 @@ public:
      * @param value
      */
     void Push(int value);
+
+    /**
+     * Prints the heap in index order
+     */
+    void Print();
 
 
 };
