@@ -71,8 +71,15 @@ public:
      */
     void Insert(int value);
 
+    /**
+     * Adds value to next available spot
+     * @param value
+     */
     void Push(int value);
 
+    /**
+     * Prints the heap in index order
+     */
     void Print();
 };
 
