@@ -90,7 +90,6 @@ void MaxHeap::DeleteMax() {
 
         // Look through children and find new max
         for (int i = maxIndex + 1; i < this->_k; i++) {
-            std::cout << "index: " << i << std::endl;
             if (this->_heap[i] > max) {
                 max = this->_heap[i];
                 maxIndex = i;
