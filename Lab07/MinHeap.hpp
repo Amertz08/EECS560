@@ -8,8 +8,6 @@ private:
     int* _heap;
     int _k, _size;
 
-    void _buildHeap(int targetIndex);
-
     /**
      * Finds parent index for given node index
      * @param index : node index
@@ -24,10 +22,24 @@ private:
     void _upHeap(int index);
 
     /**
+     * Recurse down heap finding new min
+     * @param index : start index
+     */
+    void _downHeap(int index);
+
+    /**
      * Prints node value and children values
      * @param index : node index to print
      */
     void _printNode(int index);
+
+    /**
+     * Find index nth child index of ith node
+     * @param i : target node
+     * @param n : child number
+     * @return child index
+     */
+    int _nthChildIndex(int i, int n);
 
     /**
      * Returns value of nth child of ith node
