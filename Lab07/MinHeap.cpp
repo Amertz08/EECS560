@@ -20,7 +20,7 @@ void MinHeap::_printNode(int index) {
     std::cout << std::endl;
 }
 
-int MinHeap::_nthChild(int i, int n) { return this->_heap[5*i + n]; }
+int MinHeap::_nthChild(int i, int n) { return this->_heap[this->_k * i + n]; }
 
 void MinHeap::BuildHeap() {
     // Get most recent insertion index and value
