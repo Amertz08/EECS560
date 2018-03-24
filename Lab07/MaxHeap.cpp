@@ -45,23 +45,23 @@ void MaxHeap::BuildHeap() {
 
 void MaxHeap::_downHeap(int index) {
     auto targetValue = this->_heap[index];
-    auto min = targetValue;
-    auto minIndex = index;
+    auto max = targetValue;
+    auto maxIndex = index;
 
     for (int n = 1; n <= this->_k; n++) {
         auto childValue = this->_nthChild(index, n);
-        if (childValue < min && childValue != 0) {
-            min = childValue;
-            minIndex = this->_nthChildIndex(index, n);
+        if (childValue > max && childValue != 0) {
+            max = childValue;
+            maxIndex = this->_nthChildIndex(index, n);
         }
     }
 
-    // If one of the children is less than the target value swap
-    if (min != targetValue) {
-        this->_heap[index] = min;
-        this->_heap[minIndex] = targetValue;
+    // If one of the children is greater than the target value swap
+    if (max != targetValue) {
+        this->_heap[index] = max;
+        this->_heap[maxIndex] = targetValue;
         // Continue down child node
-        this->_downHeap(minIndex);
+        this->_downHeap(maxIndex);
     }
 }
 
@@ -87,7 +87,7 @@ void MaxHeap::_upHeap(int index) {
     auto parentValue = this->_heap[parentIndex];
 
     // Check if we need to swap
-    if (parentValue > targetValue) {
+    if (parentValue < targetValue) {
         // Swap
         this->_heap[parentIndex] = targetValue;
         this->_heap[index] = parentValue;
@@ -112,21 +112,21 @@ void MaxHeap::Print() {
 }
 
 int MaxHeap::_minIndex() {
-    return 0;
-}
-
-int MaxHeap::_maxIndex() {
-    int maxIndex = 0;
-    int max = this->_heap[maxIndex];
+    int minIndex = 0;
+    int min = this->_heap[minIndex];
 
     for (int i = 0; i < this->_size - 1; i++) {
         auto val = this->_heap[i];
-        if (val > max) {
-            max = val;
-            maxIndex = i;
+        if (val < min) {
+            min = val;
+            minIndex = i;
         }
     }
-    return maxIndex;
+    return minIndex;
+}
+
+int MaxHeap::_maxIndex() {
+    return 0;
 }
 
 int MaxHeap::FindMin() {
