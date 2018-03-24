@@ -10,9 +10,7 @@ MaxHeap::MaxHeap() {
 
 MaxHeap::~MaxHeap() { delete this->_heap; }
 
-bool MaxHeap::_compare(int parent, int child) {
-    return parent < child;
-}
+bool MaxHeap::_compare(int parent, int child) { return parent < child; }
 
 int MaxHeap::_parentIndex(int index) { return int(floor((index - 1) / this->_k)); }
 

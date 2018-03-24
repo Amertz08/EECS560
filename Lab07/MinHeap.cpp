@@ -10,6 +10,8 @@ MinHeap::MinHeap() {
 
 MinHeap::~MinHeap() { delete this->_heap; }
 
+bool MinHeap::_compare(int parent, int child) { return parent > child; }
+
 int MinHeap::_parentIndex(int index) { return int(floor((index - 1) / this->_k)); }
 
 void MinHeap::_printNode(int index) {
@@ -87,7 +89,7 @@ void MinHeap::_upHeap(int index) {
     auto parentValue = this->_heap[parentIndex];
 
     // Check if we need to swap
-    if (parentValue > targetValue) {
+    if (this->_compare(parentValue, targetValue)) {
         // Swap
         this->_heap[parentIndex] = targetValue;
         this->_heap[index] = parentValue;

@@ -9,6 +9,15 @@ private:
     int _k, _size;
 
     /**
+     * Looks at value of parent and child and
+     * determines if they should be swapped
+     * @param parent
+     * @param child
+     * @return
+     */
+    bool _compare(int parent, int child);
+
+    /**
      * Finds parent index for given node index
      * @param index : node index
      * @return parent index
