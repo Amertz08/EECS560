@@ -143,10 +143,11 @@ void MinHeap::DeleteMin() {
         return;
     } else if (this->_size == 1) {
         this->_heap[0] = 0;
+        this->_size--;
         return;
     } else {
         // Root has children
-        auto minIndex = 1;
+        auto minIndex = this->_minIndex() + 1;
         auto min = this->_heap[minIndex];
 
         // Look through children and find new min
@@ -160,8 +161,37 @@ void MinHeap::DeleteMin() {
         // Reassign root to new min
         this->_heap[0] = min;
 
-        // Shift remaining values
+        // Shift remaining values left
         for (int i = minIndex; i < this->_size; i++) {
+            this->_heap[i] = this->_heap[i + 1];
+        }
+        this->_size--;
+    }
+}
+
+void MinHeap::DeleteMax() {
+    if (this->_size == 0) {
+        std::cout << "Empty heap\n";
+        return;
+    } else if (this->_size == 1) {
+        this->_heap[0] = 0;
+        this->_size--;
+        return;
+    } else {
+        // Root has children
+        auto maxIndex = this->_maxIndex();
+        auto max = this->_heap[maxIndex];
+
+        // Look through children and find new max
+        for (int i = maxIndex + 1; i < this->_k; i++) {
+            if (this->_heap[i] > max) {
+                max = this->_heap[i];
+                maxIndex = i;
+            }
+        }
+
+        // Shift remaining values left
+        for (int i = maxIndex; i < this->_size; i++) {
             this->_heap[i] = this->_heap[i + 1];
         }
         this->_size--;
