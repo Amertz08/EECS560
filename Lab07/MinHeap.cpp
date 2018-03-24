@@ -145,6 +145,25 @@ void MinHeap::DeleteMin() {
         this->_heap[0] = 0;
         return;
     } else {
+        // Root has children
+        auto minIndex = 1;
+        auto min = this->_heap[minIndex];
 
+        // Look through children and find new min
+        for (int i = minIndex + 1; i < this->_k; i++) {
+            if (this->_heap[i] < min) {
+                min = this->_heap[i];
+                minIndex = i;
+            }
+        }
+
+        // Reassign root to new min
+        this->_heap[0] = min;
+
+        // Shift remaining values
+        for (int i = minIndex; i < this->_size; i++) {
+            this->_heap[i] = this->_heap[i + 1];
+        }
+        this->_size--;
     }
 }
