@@ -37,6 +37,17 @@ private:
 public:
 
     /**
+     * Max K-Heap class
+     * @param k
+     */
+    explicit MaxHeap(int k);
+
+    /**
+     * Destructor
+     */
+    ~MaxHeap() override;
+
+    /**
      * Delete min value in heap
      */
     void DeleteMin() override;

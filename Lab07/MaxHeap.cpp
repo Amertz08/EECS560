@@ -1,6 +1,14 @@
 #include <iostream>
 #include "MaxHeap.hpp"
 
+MaxHeap::MaxHeap(int k) {
+    this->_heap = new int[MAX_HEAP_SIZE]();
+    this->_k = k;
+    this->_size = 0;
+}
+
+MaxHeap::~MaxHeap() { delete[] this->_heap; }
+
 bool MaxHeap::_compare(int parent, int child) { return parent < child; }
 
 void MaxHeap::_downHeap(int index) {

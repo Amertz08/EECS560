@@ -1,6 +1,14 @@
 #include <iostream>
 #include "MinHeap.hpp"
 
+MinHeap::MinHeap(int k) {
+    this->_heap = new int[MAX_HEAP_SIZE]();
+    this->_k = k;
+    this->_size = 0;
+}
+
+MinHeap::~MinHeap() { delete[] this->_heap; }
+
 bool MinHeap::_compare(int parent, int child) { return parent > child; }
 
 void MinHeap::_downHeap(int index) {

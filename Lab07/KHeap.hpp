@@ -74,20 +74,9 @@ protected:
 public:
 
     /**
-     * K-Heap default constructor
-     */
-    KHeap();
-
-    /**
-     * K-Heap interface
-     * @param k
-     */
-    explicit KHeap(int k);
-
-    /**
      * Destructor
      */
-    ~KHeap();
+    virtual ~KHeap() = 0;
 
     /**
      * Heapifies heap

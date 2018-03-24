@@ -36,6 +36,17 @@ private:
 public:
 
     /**
+     * Min K-Heap
+     * @param k
+     */
+    explicit MinHeap(int k);
+
+    /**
+     * Destructor
+     */
+    ~MinHeap() override;
+
+    /**
      * Delete min value in heap
      */
     void DeleteMin() override;
