@@ -37,7 +37,7 @@ int MaxHeap::_minIndex() {
     int minIndex = 0;
     int min = this->_heap[minIndex];
 
-    for (int i = 0; i < this->_size - 1; i++) {
+    for (int i = 0; i < this->_size; i++) {
         auto val = this->_heap[i];
         if (val < min) {
             min = val;
