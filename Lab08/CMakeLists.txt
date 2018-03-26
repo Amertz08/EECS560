@@ -1,2 +1,2 @@
-file(GLOB SRC *.*pp)
-add_executable(Lab08 ${SRC})
+SET(min MinMaxHeap.cpp MinMaxHeap.hpp)
+add_executable(Lab08Test test.cpp ${min})
