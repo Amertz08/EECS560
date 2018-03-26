@@ -1,0 +1,10 @@
+#ifndef EECS560_MINMAXHEAP_HPP
+#define EECS560_MINMAXHEAP_HPP
+
+
+class MinMaxHeap {
+
+};
+
+
+#endif //EECS560_MINMAXHEAP_HPP
