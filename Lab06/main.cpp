@@ -1,18 +1,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <thread>
-#include <mutex>
 #include <iomanip>
 #include <fstream>
 #include <vector>
 #include "OpenHashTable.hpp"
 #include "DHashTable.hpp"
 #include "QHashTable.hpp"
-
-const int AVG_TEST_COUNT = 5;
-int insertTimes[AVG_TEST_COUNT] = {0};
-std::mutex findMutex;
 
 /**
  * Returns random int from 1 <= max
@@ -30,19 +24,14 @@ int generateNumber(int max) {
  * @param maxRange : highest value of random number range
  * @return : total insert time
  */
-void _testInsert(HashTable* table, int threadID, int maxInsertions, int maxRange) {
-    if (!table) {
-        std::cerr << "Received nullptr\n";
-        exit(1);
-    }
-    std::srand((unsigned)threadID);
+int _testInsert(HashTable* table, int maxInsertions, int maxRange) {
     int insertTime = 0;
     for (int i = 0; i < maxInsertions; i++) {
         auto start = std::clock();
         table->Insert(generateNumber(maxRange));
         insertTime += std::clock() - start;
     }
-    insertTimes[threadID] = insertTime;
+    return insertTime;
 }
 
 /**
@@ -53,42 +42,13 @@ void _testInsert(HashTable* table, int threadID, int maxInsertions, int maxRange
  * @param maxRange : highest value of random number range
  * @return : average time for the amount of test cases
  */
-float testInsert(HashTable* tables[], int maxInsertions, int maxRange) {
+float testInsert(HashTable* table, int testCount, int maxInsertions, int maxRange) {
     int totalTime = 0;
-    std::thread t[AVG_TEST_COUNT];
-    for (int i = 0; i < AVG_TEST_COUNT; i++) {
-        t[i] = std::thread(_testInsert, tables[i], i, maxInsertions, maxRange);
+    for (int i = 0; i < testCount; i++) {
+        std::srand((unsigned)i);
+        totalTime += _testInsert(table, maxInsertions, maxRange);
     }
-
-    for (int i = 0; i < AVG_TEST_COUNT; i++) {
-        t[i].join();
-        totalTime += insertTimes[i];
-    }
-    return ((float)totalTime / (float)AVG_TEST_COUNT) / (float)CLOCKS_PER_SEC;
-}
-
-float findTime[2] = {0};
-
-void _testFind(HashTable* table, int maxRange) {
-    if (!table) {
-        std::cerr << "No table\n";
-        exit(1);
-    }
-    int tests = 10000;
-    std::srand((unsigned)std::time(nullptr));
-    for (int i = 0; i < tests; i++) {
-        auto searchVal = generateNumber(maxRange);
-        auto start = std::clock();
-        auto found = table->Find(searchVal);
-        auto elapsed = (float)(std::clock() - start) / (float)CLOCKS_PER_SEC;
-        findMutex.lock();
-        if (found) {
-            findTime[0] += elapsed;
-        } else {
-            findTime[1] += elapsed;
-        }
-        findMutex.unlock();
-    }
+    return ((float)totalTime / (float)testCount) / (float)CLOCKS_PER_SEC;
 }
 
 /**
@@ -97,19 +57,22 @@ void _testFind(HashTable* table, int maxRange) {
  * @param maxRange : max value for range of random numbers
  * @return : Average time of tests
  */
-float* testFind(HashTable* tables[], int maxRange) {
-    std::thread t[AVG_TEST_COUNT];
-    for (int i = 0; i < AVG_TEST_COUNT; i++) {
-        t[i] = std::thread(_testFind, tables[i], maxRange);
+float* testFind(HashTable* table, int maxRange) {
+    auto totalTime = new float[2]();
+    int tests = 10000;
+    std::srand((unsigned)std::time(nullptr)); // Random seed
+    for (int i = 0; i < tests; i++) {
+        auto searchVal = generateNumber(maxRange);
+        auto start = std::clock();
+        auto found = table->Find(searchVal);
+        auto elapsed = (float)(std::clock() - start) / (float)CLOCKS_PER_SEC;
+        if (found) {
+            totalTime[0] += elapsed;
+        } else {
+            totalTime[1] += elapsed;
+        }
     }
-
-    for (int i = 0; i < AVG_TEST_COUNT; i++) {
-        t[i].join();
-    }
-
-    findTime[0] = findTime[0] / AVG_TEST_COUNT;
-    findTime[1] = findTime[1] / AVG_TEST_COUNT;
-    return findTime;
+    return totalTime;
 }
 
 void printRow(float **row, int n, int numTests) {
@@ -144,29 +107,20 @@ void run() {
         // For each table type create a results array
         results[i] = new float*[numTests];
         for (int j = 0; j < numTests; j++) {
-            HashTable* tables[AVG_TEST_COUNT];
+            HashTable* table;
             results[i][j] = new float[3]();
-            for (int x = 0; x < AVG_TEST_COUNT; x++) {
-                if (i == 0) {
-                    tables[x] = new OpenHashTable(m);
-                } else if (i == 1) {
-                    tables[x] = new QHashTable(m, k);
-                } else {
-                    tables[x] = new DHashTable(m, k, p);
-                }
-            }
-            results[i][j][0] = testInsert(tables, maxInsertions[j], maxRange);
-
-            for (int x = 0; x < AVG_TEST_COUNT; x++) {
-                insertTimes[x] = 0;
+            if (i == 0) {
+                table = new OpenHashTable(m);
+            } else if (i == 1) {
+                table = new QHashTable(m, k);
+            } else {
+                table = new DHashTable(m, k, p);
             }
 
-            for (int x = 0; x < AVG_TEST_COUNT; x++) {
-                auto tmp = testFind(tables, maxRange);
-                results[i][j][1] = tmp[0];
-                results[i][j][2] = tmp[1];
-                delete tmp;
-            }
+            results[i][j][0] = testInsert(table, 5, maxInsertions[j], maxRange);
+            auto tmp = testFind(table, maxRange);
+            results[i][j][1] = tmp[0];
+            results[i][j][2] = tmp[1];
             // TODO: segfault if delete called
 //            std::cout << "i: " << i << " j: " << j << "\n";
 //            delete table;
@@ -185,13 +139,6 @@ void run() {
         for (int j = 0; j < 3; j++)
             printRow(results[i], j, numTests);
         std::cout << std::endl;
-    }
-
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < numTests; j++) {
-            delete[] results[i][j];
-        }
-        delete[] results[i];
     }
 }
 
