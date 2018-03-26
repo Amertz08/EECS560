@@ -59,3 +59,4 @@ dir:
 	mkdir build
 
 clean: dir
+	rm $(ARCH)
