@@ -14,6 +14,8 @@ private:
     int _parentIndex(int index);
     bool _shouldSwap(int parentIndex, int index);
     void _printNode(int index);
+    int _leftChildIndex(int index);
+    int _rightChildIndex(int index);
     int _leftChild(int index);
     int _rightChild(int index);
     int _findMin(int index);

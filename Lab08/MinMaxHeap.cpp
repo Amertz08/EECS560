@@ -66,15 +66,19 @@ void MinMaxHeap::_printNode(int index) {
               << this->_heap[index]
               << std::endl
               << "left: "
-              << this->_heap[this->_leftChild(index)]
+              << this->_leftChild(index)
               << " right: "
-              << this->_heap[this->_rightChild(index)]
+              << this->_rightChild(index)
               << std::endl;
 }
 
-int MinMaxHeap::_leftChild(int index) { return 2 * index; }
+int MinMaxHeap::_leftChildIndex(int index) { return 2 * index; }
 
-int MinMaxHeap::_rightChild(int index) { return (2 * index) + 1; }
+int MinMaxHeap::_rightChildIndex(int index) { return (2 * index) + 1; }
+
+int MinMaxHeap::_leftChild(int index) { return this->_heap[this->_leftChildIndex(index)]; }
+
+int MinMaxHeap::_rightChild(int index) { return this->_heap[this->_rightChildIndex(index)]; }
 
 void MinMaxHeap::_downHeap(int index) {
     if (index > this->_size)
