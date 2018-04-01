@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 #include <math.h>
 
 #include "MinMax.hpp"
@@ -28,8 +30,9 @@ void MinMax::printNode(int i) {
     auto val = this->heap[i];
     auto left = this->leftChild(i);
     auto right = this->rightChild(i);
+    std::string type = this->isMinNode(i) ? "MIN" : "MAX";
 
-    std::cout << "Node: " << val << std::endl
+    std::cout << "Node: " << val << " type: " << type << std::endl
               << "Left: " << left << " Right: " << right
               << std::endl;
 }
