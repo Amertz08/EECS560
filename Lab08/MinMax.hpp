@@ -12,11 +12,17 @@ private:
     bool isMinNode(int i);
     int parentIndex(int i);
     int parent(int i);
+    int leftChildIndex(int i);
+    int rightChildIndex(int i);
+    int leftChild(int i);
+    int rightChild(int i);
+    void printNode(int i);
 public:
     MinMax();
     ~MinMax();
 
     void Push(int value);
+    void Print();
 
 };
 
