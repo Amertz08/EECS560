@@ -12,8 +12,8 @@ test: test.o
 test.o: minmax.o
 	$(G) -c test.cpp -o $(T)
 
-minmax.o: MinMax.cpp
-	$(G) -c MinMax.cpp -o $(MIN)
+minmax.o: MinMaxHeap.cpp
+	$(G) -c MinMaxHeap.cpp -o $(MIN)
 
 dir:
 	rm -rf build
