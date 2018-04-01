@@ -39,7 +39,9 @@ void MinMaxHeap::_upHeap(int index) {
     }
 }
 
-bool MinMaxHeap::_isMinNode(int index) { return (int)floor(log2(index)) % 2 == 0; }
+int MinMaxHeap::_level(int index) { return (int)floor(log2(index)); }
+
+bool MinMaxHeap::_isMinNode(int index) { return this->_level(index) % 2 == 0; }
 
 int MinMaxHeap::_parentIndex(int index) { return (int)floor(index / 2); }
 
@@ -82,7 +84,7 @@ int MinMaxHeap::_leftChild(int index) { return this->_heap[this->_leftChildIndex
 int MinMaxHeap::_rightChild(int index) { return this->_heap[this->_rightChildIndex(index)]; }
 
 void MinMaxHeap::_downHeap(int index) {
-    if (index > this->_size)
+    if (index > this->_size + 1)
         return;
 
     if (this->_isMinNode(index)) {
@@ -138,11 +140,32 @@ int MinMaxHeap::_findMax(int index) {
 }
 
 void MinMaxHeap::BuildHeap() {
-    if (this->_size == 1)
+    if (this->_size == ROOT)
         return;
 
-    auto lastHeap = this->_parentIndex(this->_size);
+    auto lastHeap = this->_parentIndex(this->_size + ROOT);
 
     for (int i = lastHeap; i >= ROOT; i++)
         this->_downHeap(i);
+}
+
+void MinMaxHeap::LevelOrder() {
+    auto totalLevels = this->_level(this->_size);
+#if DEBUG
+    std::cout << "totalLevels: " << totalLevels << std::endl;
+#endif
+
+    int start = ROOT;
+    for (int i = 0; i <= totalLevels; i++) {
+        auto end = start + (int)pow(2, i);
+        std::cout << "Level " << i << ": ";
+#if DEBUG
+        std::cout << "i: " << i << " start: " << start << " end: " << end << std::endl;
+#endif
+        for (int j = start; j < end; j++) {
+            std::cout << this->_heap[j] << " ";
+        }
+        std::cout << std::endl;
+        start = end;
+    }
 }

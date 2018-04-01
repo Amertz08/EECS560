@@ -3,6 +3,7 @@
 
 #define ROOT 1
 #define HEAP_SIZE 500
+#define DEBUG 1
 
 class MinMaxHeap {
 private:
@@ -21,6 +22,7 @@ private:
     int _rightChild(int index);
     int _findMin(int index);
     int _findMax(int index);
+    int _level(int index);
 
 public:
     MinMaxHeap();
@@ -30,6 +32,7 @@ public:
     void Insert(int val);
     void Print();
     void BuildHeap();
+    void LevelOrder();
 };
 
 
