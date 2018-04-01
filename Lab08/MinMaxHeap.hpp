@@ -1,6 +1,7 @@
 #ifndef EECS560_MINMAXHEAP_HPP
 #define EECS560_MINMAXHEAP_HPP
 
+#define ROOT 1
 #define HEAP_SIZE 500
 
 class MinMaxHeap {

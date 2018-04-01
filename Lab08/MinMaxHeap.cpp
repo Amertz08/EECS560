@@ -39,9 +39,7 @@ void MinMaxHeap::_upHeap(int index) {
     }
 }
 
-bool MinMaxHeap::_isMinNode(int index) {
-    return (int)floor(log(index)) % 2 == 0;
-}
+bool MinMaxHeap::_isMinNode(int index) { return (int)floor(log2(index)) % 2 == 0; }
 
 int MinMaxHeap::_parentIndex(int index) { return (int)floor(index / 2); }
 
@@ -57,13 +55,16 @@ bool MinMaxHeap::_shouldSwap(int parentIndex, int index) {
 
 void MinMaxHeap::Print() {
     std::cout << "Printing\n";
-    for (int i = 1; i < this->_size + 1; i++)
+    for (int i = ROOT; i < this->_size + 1; i++)
         this->_printNode(i);
 }
 
 void MinMaxHeap::_printNode(int index) {
+    std::string type = this->_isMinNode(index) ? "MIN" : "MAX";
     std::cout << "Node: "
               << this->_heap[index]
+              << " type: "
+              << type
               << std::endl
               << "left: "
               << this->_leftChild(index)
@@ -142,6 +143,6 @@ void MinMaxHeap::BuildHeap() {
 
     auto lastHeap = this->_parentIndex(this->_size);
 
-    for (int i = lastHeap; i > 0; i++)
+    for (int i = lastHeap; i >= ROOT; i++)
         this->_downHeap(i);
 }
