@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "MinMax.hpp"
+#include "MinMaxHeap.hpp"
 
 int main(int argc, char* argv[]) {
     std::ifstream file;
@@ -12,12 +12,41 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
 
-    MinMax min;
+    MinMaxHeap minHeap;
 
     int input;
-    while (file >> input)
-        min.Push(input);
+    while (file >> input) {
+        std::cout << input << " ";
+        minHeap.Push(input);
+    }
+    std::cout << std::endl;
+    minHeap.Print();
+    minHeap.LevelOrder();
 
-    min.Print();
+
     std::cout << "Values inserted\n";
+
+    auto min = minHeap.FindMin();
+    auto max = minHeap.FindMax();
+    std::cout << "Min: " << min << " Max: " << max << std::endl;
+
+    std::cout << "Calling BuildHeap\n";
+    minHeap.BuildHeap();
+    minHeap.LevelOrder();
+
+    min = minHeap.FindMin();
+    max = minHeap.FindMax();
+    std::cout << "Min: " << min << " Max: " << max << std::endl;
+
+    minHeap.DeleteMin();
+    minHeap.LevelOrder();
+    min = minHeap.FindMin();
+    max = minHeap.FindMax();
+    std::cout << "Min: " << min << " Max: " << max << std::endl;
+
+    minHeap.DeleteMax();
+    minHeap.LevelOrder();
+    min = minHeap.FindMin();
+    max = minHeap.FindMax();
+    std::cout << "Min: " << min << " Max: " << max << std::endl;
 }
