@@ -40,6 +40,8 @@ public:
     void LevelOrder();
     int FindMin();
     int FindMax();
+    void DeleteMin();
+    void DeleteMax();
 };
 
 
