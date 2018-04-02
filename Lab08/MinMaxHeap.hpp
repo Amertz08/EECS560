@@ -3,7 +3,7 @@
 
 #define ROOT 1
 #define HEAP_SIZE 500
-#define DEBUG 1
+#define DEBUG 0
 
 class MinMaxHeap {
 private:
