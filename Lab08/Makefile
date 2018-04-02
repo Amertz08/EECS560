@@ -4,21 +4,25 @@ TBIN=build/test
 T=build/test.o
 MIN=build/minmax.o
 MAX=build/maxmin.o
+H=build/heap.o
 
 runtest:
 	$(TBIN)
 
 test: test.o
-	$(G) -o $(TBIN) $(T) $(MIN) $(MAX)
+	$(G) -o $(TBIN) $(T) $(H) $(MIN) $(MAX)
 
 test.o: minmax.o maxmin.o
 	$(G) -c test.cpp -o $(T)
 
-minmax.o: MinMaxHeap.cpp
+minmax.o: heap.o MinMaxHeap.cpp
 	$(G) -c MinMaxHeap.cpp -o $(MIN)
 
-maxmin.o: MaxMinHeap.cpp
+maxmin.o: heap.o MaxMinHeap.cpp
 	$(G) -c MaxMinHeap.cpp -o $(MAX)
+
+heap.o: Heap.cpp
+	$(G) -c Heap.cpp -o $(H)
 
 tar:
 	cp $(shell find . -type f -name "*.*pp") \
