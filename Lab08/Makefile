@@ -1,4 +1,5 @@
 G=g++ -g -Wall -std=c++11
+N=Mertz_Lab08
 TBIN=build/test
 T=build/test.o
 MIN=build/minmax.o
@@ -19,6 +20,17 @@ minmax.o: MinMaxHeap.cpp
 maxmin.o: MaxMinHeap.cpp
 	$(G) -c MaxMinHeap.cpp -o $(MAX)
 
+tar:
+	cp $(shell find . -type f -name "*.*pp") \
+		MakeFile data.txt \
+		$(N)
+	tar -cvf $(N).tar.gz $(N)
+
 dir:
+	rm -rf $(N)
+	mkdir -p $(N)
 	rm -rf build
 	mkdir -p build
+
+clean: dir
+	rm $(N).tar.gz
