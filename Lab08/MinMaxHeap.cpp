@@ -21,7 +21,7 @@ void MinMaxHeap::Insert(int val) {
 }
 
 void MinMaxHeap::_upHeap(int index) {
-    if (index == 1)
+    if (index == ROOT)
         return;
 
     auto parentIndex = this->_parentIndex(index);
@@ -75,6 +75,8 @@ void MinMaxHeap::_printNode(int index) {
               << std::endl;
 }
 
+bool MinMaxHeap::_isLeaf(int index) { return this->_leftChild(index) == 0 && this->_rightChild(index) == 0; }
+
 int MinMaxHeap::_leftChildIndex(int index) { return 2 * index; }
 
 int MinMaxHeap::_rightChildIndex(int index) { return (2 * index) + 1; }
@@ -84,7 +86,7 @@ int MinMaxHeap::_leftChild(int index) { return this->_heap[this->_leftChildIndex
 int MinMaxHeap::_rightChild(int index) { return this->_heap[this->_rightChildIndex(index)]; }
 
 void MinMaxHeap::_downHeap(int index) {
-    if (index > this->_size + 1)
+    if (index > this->_size + ROOT)
         return;
 
     if (this->_isMinNode(index)) {
@@ -97,7 +99,8 @@ void MinMaxHeap::_downHeap(int index) {
             this->_heap[minIndex] = current;
             this->_heap[index] = min;
         }
-        this->_downHeap(index + 1);
+        this->_downHeap(this->_leftChildIndex(index));
+        this->_downHeap(this->_rightChildIndex(index));
     } else {
         auto maxIndex = this->_findMax(index);
         auto max = this->_heap[maxIndex];
@@ -108,36 +111,68 @@ void MinMaxHeap::_downHeap(int index) {
             this->_heap[maxIndex] = current;
             this->_heap[index] = max;
         }
-        this->_downHeap(index + 1);
+        this->_downHeap(this->_leftChildIndex(index));
+        this->_downHeap(this->_rightChildIndex(index));
     }
 }
 
-int MinMaxHeap::_findMin(int index) {
-    auto min = this->_heap[index];
-    auto minIndex = index;
-
-    for (int i = index + 1; i <= this->_size; i++) {
-        if (this->_heap[i] < min) {
-            min = this->_heap[i];
-            minIndex = i;
-        }
+int MinMaxHeap::_findMinIndexHelper(int index, int minIndex) {
+    // See if current node is less than current min
+    auto current = this->_heap[index];
+    auto min = this->_heap[minIndex];
+#if DEBUG
+    std::cout << "Before swap current: " << current << " min: " << min << std::endl;
+#endif
+    if (current < min) {
+#if DEBUG
+        std::cout << "Nex min: " << current << std::endl;
+#endif
+        minIndex = index;
+        min = current;
     }
+#if DEBUG
+    std::cout << "After swap current: " << current << " min: " << min << std::endl;
+#endif
 
+    if (!this->_isLeaf(index)) {
+        minIndex = this->_findMinIndexHelper(this->_leftChildIndex(index), minIndex);
+        minIndex = this->_findMinIndexHelper(this->_rightChildIndex(index), minIndex);
+    }
     return minIndex;
 }
 
-int MinMaxHeap::_findMax(int index) {
-    auto max = this->_heap[index];
-    auto maxIndex = index;
+int MinMaxHeap::_findMinIndex(int index) { return this->_findMinIndexHelper(index, index); }
 
-    for (int i = index + 1; i <= this->_size; i++) {
-        if (this->_heap[i] > max) {
-            max = this->_heap[i];
-            maxIndex = i;
-        }
+int MinMaxHeap::_findMaxIndexHelper(int index, int maxIndex) {
+    // See if current node is greater than current min
+    auto current = this->_heap[index];
+    auto max = this->_heap[maxIndex];
+#if DEBUG
+    std::cout << "Before swap current: " << current << " max: " << max << std::endl;
+#endif
+    if (current > max) {
+#if DEBUG
+        std::cout << "Nex Max: " << current << std::endl;
+#endif
+        maxIndex = index;
+        max = current;
+    }
+#if DEBUG
+    std::cout << "After swap current: " << current << " max: " << max << std::endl;
+#endif
+
+    if (!this->_isLeaf(index)) {
+        maxIndex = this->_findMaxIndexHelper(this->_leftChildIndex(index), maxIndex);
+        maxIndex = this->_findMaxIndexHelper(this->_rightChildIndex(index), maxIndex);
     }
     return maxIndex;
 }
+
+int MinMaxHeap::_findMaxIndex(int index) { return this->_findMaxIndexHelper(index, index); }
+
+int MinMaxHeap::_findMin(int index) { return this->_heap[this->_findMinIndex(index)]; }
+
+int MinMaxHeap::_findMax(int index) { return this->_heap[this->_findMaxIndex(index)]; }
 
 void MinMaxHeap::BuildHeap() {
     if (this->_size == ROOT)
@@ -169,3 +204,7 @@ void MinMaxHeap::LevelOrder() {
         start = end;
     }
 }
+
+int MinMaxHeap::FindMin() { return this->_findMin(ROOT); }
+
+int MinMaxHeap::FindMax() { return this->_findMax(ROOT); }
