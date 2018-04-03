@@ -10,9 +10,11 @@ M=build/main.o
 
 build: test main
 
+# Runs main.cpp
 runmain:
 	$(BIN)
 
+# Runs test.cpp
 runtest:
 	$(TBIN)
 
