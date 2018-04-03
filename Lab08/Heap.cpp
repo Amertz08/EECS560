@@ -208,8 +208,12 @@ void Heap::LevelOrder() {
 #if DEBUG
         std::cout << "i: " << i << " start: " << start << " end: " << end << std::endl;
 #endif
+        int count = 1;
         for (int j = start; j < end; j++) {
             std::cout << this->_heap[j] << " ";
+            if (count % 2 == 0 && count != (end - start))
+                std::cout << "- ";
+            count++;
         }
         std::cout << std::endl;
         start = end;
