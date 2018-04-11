@@ -1,8 +1,7 @@
 #ifndef EECS560_KHEAP_HPP
 #define EECS560_KHEAP_HPP
 
-#define MAX_HEAP_SIZE 500
-#define DEFAULT_K 2
+#define MAX_HEAP_SIZE 10000000
 
 class KHeap {
 protected:
