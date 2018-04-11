@@ -18,6 +18,8 @@ void MaxHeap::_downHeap(int index) {
 
     for (int n = 1; n <= this->_k; n++) {
         auto childValue = this->_nthChild(index, n);
+        if (childValue == -1)
+            break;
         if (childValue > max && childValue != 0) {
             max = childValue;
             maxIndex = this->_nthChildIndex(index, n);

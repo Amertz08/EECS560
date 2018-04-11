@@ -18,6 +18,8 @@ void MinHeap::_downHeap(int index) {
 
     for (int n = 1; n <= this->_k; n++) {
         auto childValue = this->_nthChild(index, n);
+        if (childValue == -1)
+            break;
         if (childValue < min && childValue != 0) {
             min = childValue;
             minIndex = this->_nthChildIndex(index, n);
@@ -65,7 +67,6 @@ void MinHeap::DeleteMin() {
         // Get last value and overwrite min
         auto minIndex = this->_minIndex();
         auto lastVal = this->_heap[this->_size - 1];
-        std::cout << "lastval: " << lastVal << std::endl;
         this->_heap[this->_size - 1] = 0;
         this->_heap[minIndex] = lastVal;
         this->_size--;

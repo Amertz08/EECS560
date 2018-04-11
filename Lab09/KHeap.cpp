@@ -8,9 +8,20 @@ KHeap::~KHeap() = default;
 
 int KHeap::_parentIndex(int index) { return int(floor((index - 1) / this->_k)); }
 
-int KHeap::_nthChildIndex(int i, int n) { return this->_k * i + n; }
+int KHeap::_nthChildIndex(int i, int n) {
+    auto val = this->_k * i + n;
+    if (val > MAX_HEAP_SIZE) {
+        return -1;
+    }
+    return val;
+}
 
-int KHeap::_nthChild(int i, int n) { return this->_heap[this->_nthChildIndex(i, n)]; }
+int KHeap::_nthChild(int i, int n) {
+    auto index = this->_nthChildIndex(i, n);
+    if (index == -1)
+        return -1;
+    return this->_heap[index];
+}
 
 void KHeap::_upHeap(int index) {
     // Get value
@@ -37,7 +48,12 @@ void KHeap::_upHeap(int index) {
 void KHeap::_printNode(int index) {
     std::cout << "Node: " << this->_heap[index] << std::endl << "Children: ";
     for (int n = 1; n <= this->_k; n++) {
-        std::cout << this->_nthChild(index, n) << " ";
+        auto childVal = this->_nthChild(index, n);
+        if (childVal == -1) {
+            std::cout << "0 ";
+        } else {
+            std::cout << this->_nthChild(index, n) << " ";
+        }
     }
     std::cout << std::endl;
 }
