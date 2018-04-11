@@ -65,7 +65,6 @@ void MinHeap::DeleteMin() {
         // Get last value and overwrite min
         auto minIndex = this->_minIndex();
         auto lastVal = this->_heap[this->_size - 1];
-        std::cout << "lastval: " << lastVal << std::endl;
         this->_heap[this->_size - 1] = 0;
         this->_heap[minIndex] = lastVal;
         this->_size--;
