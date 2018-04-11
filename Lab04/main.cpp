@@ -56,10 +56,16 @@ int main(int argc, char* argv[]) {
                     tree.insert(value);
                     break;
                 case 2:
+                    target = tree.findMin();
+                    value = target->getValue();
                     tree.deleteMin();
+                    std::cout << "Deleted: " << value << " from tree\n";
                     break;
                 case 3:
+                    target = tree.findMax();
+                    value = target->getValue();
                     tree.deleteMax();
+                    std::cout << "Deleted: " << value << " from tree\n";
                     break;
                 case 4:
                     std::cout << "Delete a value: ";
