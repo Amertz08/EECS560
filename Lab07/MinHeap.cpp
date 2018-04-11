@@ -61,11 +61,11 @@ void MinHeap::DeleteMin() {
         return;
     } else {
         // Root has children
-        auto minIndex = this->_minIndex() + 1;
+        auto minIndex = 1;
         auto min = this->_heap[minIndex];
 
-        // Look through children and find new min
-        for (int i = minIndex + 1; i < this->_k; i++) {
+        // Look through remaining values and find new min
+        for (int i = minIndex + 1; i < this->_size; i++) {
             if (this->_heap[i] < min) {
                 min = this->_heap[i];
                 minIndex = i;
