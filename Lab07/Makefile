@@ -17,6 +17,9 @@ build: dir main.o test.o
 run:
 	$(BIN) data.txt
 
+mem:
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN) data.txt
+
 test:
 	$(TEST) data.txt
 
