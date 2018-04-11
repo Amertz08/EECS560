@@ -200,7 +200,7 @@ void BinarySearchTree::_postOrder(Node *target) {
 
 void BinarySearchTree::deleteValue(int value) {
     Node* target = this->find(value);
-
+    // TODO: this is incorrect
     if (target) {
         Node* parent = target->getParent();
         Node* left = target->getLeft();
