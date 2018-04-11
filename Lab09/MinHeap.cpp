@@ -61,25 +61,15 @@ void MinHeap::DeleteMin() {
         return;
     } else {
         // Root has children
-        auto minIndex = 1;
-        auto min = this->_heap[minIndex];
 
-        // Look through remaining values and find new min
-        for (int i = minIndex + 1; i < this->_size; i++) {
-            if (this->_heap[i] < min) {
-                min = this->_heap[i];
-                minIndex = i;
-            }
-        }
-
-        // Reassign root to new min
-        this->_heap[0] = min;
-
-        // Shift remaining values left
-        for (int i = minIndex; i < this->_size; i++) {
-            this->_heap[i] = this->_heap[i + 1];
-        }
+        // Get last value and overwrite min
+        auto minIndex = this->_minIndex();
+        auto lastVal = this->_heap[this->_size - 1];
+        std::cout << "lastval: " << lastVal << std::endl;
+        this->_heap[this->_size - 1] = 0;
+        this->_heap[minIndex] = lastVal;
         this->_size--;
+        this->_downHeap(minIndex);
     }
 }
 
@@ -93,16 +83,13 @@ void MinHeap::DeleteMax() {
         return;
     } else {
         // Root has children
-        auto maxIndex = this->_maxIndex();
 
-        /*
-         * Max value in Min heap would have to be in a leaf.
-         * Because of this we can simply shift all values after
-         * it to the left.
-         */
-        for (int i = maxIndex; i < this->_size; i++) {
-            this->_heap[i] = this->_heap[i + 1];
-        }
+        // Get last value and overwrite max
+        auto maxIndex = this->_maxIndex();
+        auto lastValue = this->_heap[this->_size - 1];
+        this->_heap[this->_size - 1] = 0;
+        this->_heap[maxIndex] = lastValue;
         this->_size--;
+        this->_upHeap(maxIndex);
     }
 }
