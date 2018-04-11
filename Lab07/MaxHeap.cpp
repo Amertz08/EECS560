@@ -85,11 +85,11 @@ void MaxHeap::DeleteMax() {
         return;
     } else {
         // Root has children
-        auto maxIndex = this->_maxIndex();
+        auto maxIndex = 1;
         auto max = this->_heap[maxIndex];
 
         // Look through children and find new max
-        for (int i = maxIndex + 1; i < this->_k; i++) {
+        for (int i = maxIndex + 1; i < this->_size; i++) {
             if (this->_heap[i] > max) {
                 max = this->_heap[i];
                 maxIndex = i;
