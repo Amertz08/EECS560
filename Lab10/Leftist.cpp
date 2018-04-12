@@ -17,7 +17,9 @@ void Leftist::BuildHeap() {
 }
 
 bool Leftist::_shouldSwap(Node* target) {
-
+    auto right = target->getRight();
+    auto left = target->getLeft();
+    return left->rank() < right->rank();
 }
 
 void Leftist::_insert(Node *leftHeap, Node *rightHeap) {
