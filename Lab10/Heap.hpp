@@ -9,6 +9,7 @@ protected:
 
     bool _empty();
     void _swap(Node* target);
+    void _delete(Node* target);
     virtual bool _shouldSwap(Node* target) = 0;
 
 public:
