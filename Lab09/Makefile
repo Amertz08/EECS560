@@ -45,3 +45,6 @@ tardir:
 dir:
 	rm -rf build
 	mkdir -p build
+
+clean: dir tardir
+	rm -r $(NAME).tar.gz
