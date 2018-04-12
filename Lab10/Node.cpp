@@ -2,7 +2,7 @@
 
 
 Node::Node(int value) {
-    this->value = value;
+    this->setValue(value);
     this->parent = nullptr;
     this->left = nullptr;
     this->right = nullptr;
@@ -45,3 +45,21 @@ void Node::setRight(Node *n) {
 }
 
 void Node::setValue(int value) { this->value = value; }
+
+int Node::_rank(Node *target, int rank) {
+    if (!target)
+        return rank;
+
+    rank++;
+    auto leftRank = this->_rank(target->getLeft(), rank);
+    auto rightRank = this->_rank(target->getRight(), rank);
+    return leftRank < rightRank ? leftRank : rightRank;
+}
+
+int Node::rank() {
+    int rank = 0;
+
+    auto leftRank = this->_rank(this->left, rank);
+    auto rightRank = this->_rank(this->right, rank);
+    return leftRank < rightRank ? leftRank : rightRank;
+}

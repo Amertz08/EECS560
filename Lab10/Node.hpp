@@ -8,6 +8,14 @@ private:
     Node* parent;
     Node* left;
     Node* right;
+
+    /**
+     * Helper function that calculates node's rank
+     * @param target : Node that is being looked at
+     * @param rank : on going rank calculation
+     * @return rank of the node
+     */
+    int _rank(Node* target, int rank);
 public:
     /**
      * Node class for Binary search tree
@@ -69,6 +77,12 @@ public:
      * @param n
      */
     void setRight(Node* n);
+
+    /**
+     * Finds rank of node
+     * @return
+     */
+    int rank();
 };
 
 
