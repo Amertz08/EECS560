@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Heap.hpp"
 
 Heap::~Heap() { this->_delete(this->_root); }
@@ -22,4 +24,22 @@ void Heap::_delete(Node *target) {
     this->_delete(target->getLeft());
     this->_delete(target->getRight());
     delete target;
+}
+
+void Heap::_preOrder(Node *target) {
+    if (!target)
+        return;
+
+    std::cout << target->getValue() << " ";
+    this->_preOrder(target->getLeft());
+    this->_preOrder(target->getRight());
+}
+
+void Heap::PreOrder() {
+    if (this->_empty()) {
+        std::cout << "Empty tree\n";
+        return;
+    }
+    this->_preOrder(this->_root);
+    std::cout << std::endl;
 }

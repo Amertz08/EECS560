@@ -5,15 +5,18 @@
 
 class Leftist : public Heap {
 private:
-    void _insert(Node* leftHeap, Node* rightHeap);
+    void _concat(Node* leftHeap, Node* rightHeap) override;
     bool _shouldSwap(Node* target) override;
 
 public:
     Leftist();
     ~Leftist() override;
 
-    void BuildHeap() override;
     void Insert(int value) override;
+    void DeleteMin() override;
+    int FindMin() override;
+    void InOrder() override;
+    void LevelOrder() override;
 
 };
 
