@@ -1,6 +1,8 @@
 #ifndef EECS560_HEAP_HPP
 #define EECS560_HEAP_HPP
 
+#include <list>
+
 #include "Node.hpp"
 
 #define DEBUG 1
@@ -16,6 +18,7 @@ protected:
     void _delete(Node* target);
     void _concat(Node* leftHeap, Node* rightHeap);
     void _preOrder(Node* target);
+    void _inOrder(Node* target, std::list<int>* l);
 
 public:
     Heap();
@@ -24,7 +27,7 @@ public:
     void DeleteMin();
     int FindMin();
     void LevelOrder();
-
+    void InOrder();
     void PreOrder();
 };
 

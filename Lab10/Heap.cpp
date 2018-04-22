@@ -197,3 +197,24 @@ void Heap::Insert(int value) {
         this->_swap(this->_root);
     }
 }
+
+void Heap::_inOrder(Node *target, std::list<int>* l) {
+    if (!target)
+        return;
+    l->push_back(target->getValue());
+    this->_inOrder(target->getLeft(), l);
+    this->_inOrder(target->getRight(), l);
+}
+
+void Heap::InOrder() {
+    std::list<int> values;
+    this->_inOrder(this->_root, &values);
+    values.sort();
+    for (auto val : values)
+        std::cout << val << " ";
+    std::cout << std::endl;
+}
+
+void Heap::LevelOrder() {
+
+}
