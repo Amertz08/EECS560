@@ -24,5 +24,14 @@ int main(int argc, char* argv[]) {
     lh.PreOrder();
     lh.Insert(2);
     lh.PreOrder();
+    std::cout << "Done inserting\n";
+
+    lh.DeleteMin();
+    lh.PreOrder();
+    lh.DeleteMin();
+    lh.PreOrder();
+
+    auto min = lh.FindMin();
+    std::cout << "Min: " << min << std::endl;
     std::cout << "Exiting\n";
 }
