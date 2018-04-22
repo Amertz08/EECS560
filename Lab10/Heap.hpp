@@ -3,24 +3,27 @@
 
 #include "Node.hpp"
 
+#define DEBUG 1
+
 class Heap {
 protected:
     Node* _root;
 
+    virtual bool _shouldSwap(Node* target) = 0;
+
     bool _empty();
     void _swap(Node* target);
     void _delete(Node* target);
-    virtual void _concat(Node* leftHeap, Node* rightHeap) = 0;
-    virtual bool _shouldSwap(Node* target) = 0;
+    void _concat(Node* leftHeap, Node* rightHeap);
     void _preOrder(Node* target);
 
 public:
+    Heap();
     virtual ~Heap();
-    virtual void Insert(int value) = 0;
-    virtual void DeleteMin() = 0;
-    virtual int FindMin() = 0;
-    virtual void InOrder() = 0;
-    virtual void LevelOrder() = 0;
+    void Insert(int value);
+    void DeleteMin();
+    int FindMin();
+    void LevelOrder();
 
     void PreOrder();
 };
