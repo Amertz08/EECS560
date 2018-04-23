@@ -216,8 +216,43 @@ void Heap::InOrder() {
     std::cout << std::endl;
 }
 
-void Heap::LevelOrder() {
+void Heap::_printLvl(Node *n, int lvl) {
+    if (!n)
+        return;
 
+    if (lvl == 1)
+        std::cout << n->getValue() << " ";
+    else {
+        this->_printLvl(n->getLeft(), lvl - 1);
+        this->_printLvl(n->getRight(), lvl - 1);
+    }
+}
+
+int Heap::_height(Node* n) {
+    if (!n)
+        return 0;
+
+    auto lheight = this->_height(n->getLeft());
+    auto rheight = this->_height(n->getRight());
+#if DEBUG
+    std::cout << "lheight: " << lheight << " rheight: " << rheight << std::endl;
+#endif
+
+    return lheight > rheight ? lheight + 1 : rheight + 1;
+}
+
+int Heap::Height() { return this->_height(this->_root); }
+
+void Heap::LevelOrder() {
+    auto height = this->Height();
+#if DEBUG
+    std::cout << "height: " << height << std::endl;
+#endif
+
+    for (int i = 1; i < height; i++) {
+        this->_printLvl(this->_root, i);
+        std::cout << std::endl;
+    }
 }
 
 void Heap::BuildHeap(const std::string fileName) {

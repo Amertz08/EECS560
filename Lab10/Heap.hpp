@@ -17,6 +17,8 @@ protected:
     void _concat(Node* leftHeap, Node* rightHeap);
     void _preOrder(Node* target);
     void _inOrder(Node* target, std::list<int>* l);
+    int _height(Node* n);
+    void _printLvl(Node* n, int lvl);
 
 public:
     Heap();
@@ -28,6 +30,7 @@ public:
     void InOrder();
     void PreOrder();
     void BuildHeap(std::string fileName);
+    int Height();
 };
 
 

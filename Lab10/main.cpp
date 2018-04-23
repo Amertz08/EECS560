@@ -53,7 +53,11 @@ int main(int argc, char* argv[]) {
                 sk.InOrder();
                 break;
             case 5:
-                break; // TODO: LEVEL ORDER PRINTING
+                std::cout << "Printing Leftist Heap\n";
+                lh.LevelOrder();
+                std::cout << "Print Skew Heap\n";
+                sk.LevelOrder();
+                break;
             case 6:
                 std::cout << "Exiting...\n";
                 break;
