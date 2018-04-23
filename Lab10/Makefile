@@ -12,9 +12,11 @@ BIN=build/Lab10
 
 build: dir test main
 
+# Run main.cpp binary
 rmain:
 	$(BIN) data.txt
 
+# Run test.cpp binary
 rtest:
 	$(TEST)
 
