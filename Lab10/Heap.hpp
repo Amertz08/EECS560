@@ -5,8 +5,6 @@
 
 #include "Node.hpp"
 
-#define DEBUG 1
-
 class Heap {
 protected:
     Node* _root;

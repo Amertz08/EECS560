@@ -1,7 +1,9 @@
 G=g++ -g -std=c++11 -Wall
 N=build/node.o
 H=build/heap.o
+DH=build/dheap.o
 L=build/left.o
+S=build/skew.o
 T=build/test.o
 TEST=build/test
 
@@ -11,16 +13,24 @@ rtest:
 	$(TEST)
 
 test: dir test.o
-	$(G) -o $(TEST) $(T) $(L) $(H) $(N)
+	$(G) -o $(TEST) $(T) $(L) $(S) $(DH) $(N)
 
-test.o: left.o
+test.o: left.o skew.o
 	$(G) -c test.cpp -o $(T)
 
-left.o: heap.o
+skew.o: heap.o dheap.o
+	$(G) -c Skew.cpp -o $(S)
+
+left.o: heap.o dheap.o
 	$(G) -c Leftist.cpp -o $(L)
 
+# Build normal heap class
 heap.o: node.o
 	$(G) -c Heap.cpp -o $(H)
+
+# Build with DEBUG preprocessor define
+dheap.o: node.o
+	$(G) -DDEBUG=1 -c Heap.cpp -o $(DH)
 
 node.o:
 	$(G) -c Node.cpp -o $(N)
