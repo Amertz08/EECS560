@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include "Heap.hpp"
 
@@ -217,4 +218,19 @@ void Heap::InOrder() {
 
 void Heap::LevelOrder() {
 
+}
+
+void Heap::BuildHeap(const std::string fileName) {
+    std::ifstream file;
+
+    file.open(fileName);
+    if (!file) {
+        std::cerr << "Could not open file: " << fileName << std::endl;
+        exit(1);
+    }
+
+    int input;
+    while (file >> input)
+        this->Insert(input);
+    file.close();
 }

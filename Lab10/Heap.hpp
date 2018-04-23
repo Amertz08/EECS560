@@ -27,6 +27,7 @@ public:
     void LevelOrder();
     void InOrder();
     void PreOrder();
+    void BuildHeap(std::string fileName);
 };
 
 
